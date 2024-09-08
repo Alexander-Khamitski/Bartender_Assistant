@@ -29,7 +29,6 @@ public class CocktailController {
     public ModelAndView createCocktail(@ModelAttribute Cocktail cocktail, Model model) {
         if (!cocktail.getName().isEmpty() && !cocktail.getDescription().isEmpty()) {
             cocktail.setStatus(CocktailStatus.defaultStatus().getStatus());
-            System.out.println("Cocktail printed: " + cocktail);
             cocktailRepository.save(cocktail);
             String message = String.format("Cocktail with '%s' id has been created successfully!", cocktail.getId());
             model.addAttribute("message", message);
