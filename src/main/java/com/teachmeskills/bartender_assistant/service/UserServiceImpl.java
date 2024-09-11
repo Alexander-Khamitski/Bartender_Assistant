@@ -15,17 +15,27 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
-
-//    private final UserMapper userMapper;
+    private UserRepository userRepository;
     @Autowired
-    UserMapper userMapper;
+    private RoleServiceImpl roleService;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public UserDTO createUser(UserCreateDTO userCreateDto) {
         User userFromDto = userMapper.toEntity(userCreateDto);
-        userFromDto.setRoleId(2);
+        userFromDto.setRoleId(roleService.getDefaultRole());
         User user = userRepository.save(userFromDto);
         return userMapper.toDTO(user);
+    }
+
+    @Override
+    public User getUser(int id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Unexpected user id!"));
+    }
+
+    @Override
+    public boolean isUserExist(int id) {
+        return userRepository.existsById(id);
     }
 }

@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,28 +12,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "users")
+@Table(name = "roles")
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-public class User {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "login")
-    private String login;
-
-    @Column(name = "password")
-    private String password;
-
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role roleId;
+    @Column(name = "role_name")
+    private String roleName;
 }

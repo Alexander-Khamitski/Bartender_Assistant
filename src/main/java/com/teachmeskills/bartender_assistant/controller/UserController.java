@@ -2,8 +2,8 @@ package com.teachmeskills.bartender_assistant.controller;
 
 import com.teachmeskills.bartender_assistant.dto.UserCreateDTO;
 import com.teachmeskills.bartender_assistant.entity.User;
-import com.teachmeskills.bartender_assistant.repository.UserRepository;
 import com.teachmeskills.bartender_assistant.service.UserServiceImpl;
+import com.teachmeskills.bartender_assistant.validator.UserDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserServiceImpl service;
+    private UserServiceImpl userService;
 
     @GetMapping(value = "/registration")
     public ModelAndView fillCreateUserForm() {
@@ -30,11 +28,11 @@ public class UserController {
 
     @PostMapping("/registration")
     public ModelAndView createUser(@ModelAttribute UserCreateDTO userCreateDto, Model model) {
-        if (!userCreateDto.getUsername().isEmpty() && !userCreateDto.getLogin().isEmpty() && !userCreateDto.getPassword().isEmpty()) {
-            service.createUser(userCreateDto);
-            String message = String.format("User with '%s' username has been created successfully!", userCreateDto.getUsername());
+        if (UserDTOValidator.isUserCreateDTOValid(userCreateDto)) {
+            userService.createUser(userCreateDto);
+            String message = String.format("Welcome to Bartender Assistant, %s!", userCreateDto.getUsername());
             model.addAttribute("message", message);
-            return new ModelAndView("user/getUserForm", "user", new User());
+            return new ModelAndView("user/welcomePage", "user", new User());
         }
         model.addAttribute("message", "Please, fill in valid data.");
         return new ModelAndView("user/registrationForm", "userCreateDto", new UserCreateDTO());
@@ -42,11 +40,11 @@ public class UserController {
 
     @GetMapping(value = "/get")
     public ModelAndView getUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        if (id != null && userRepository.existsById(id)) {
-            User requestedUser = userRepository.findById(id).orElse(null);
-            model.addAttribute("user", requestedUser);
+        if (id != null && userService.isUserExist(id)) {
+            User user = userService.getUser(id);
+            model.addAttribute("user", user);
             return new ModelAndView("user/getUser");
         }
-        return new ModelAndView("user/getUserForm", "user", new User());
+        return new ModelAndView("welcomePage", "user", new User());
     }
 }

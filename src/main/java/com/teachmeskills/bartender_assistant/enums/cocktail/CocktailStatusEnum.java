@@ -5,13 +5,14 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum CocktailStatus {
+public enum CocktailStatusEnum {
 
-    IN_REVIEW("In review"), APPROVED("Approved"), DECLINED("Declined");
+    IN_REVIEW(1, "In review"), APPROVED(2, "Approved"), DECLINED(3, "Declined");
 
+    private int id;
     private String status;
 
-    public static CocktailStatus defaultStatus() {
+    public static CocktailStatusEnum defaultStatus() {
         return IN_REVIEW;
     }
 }

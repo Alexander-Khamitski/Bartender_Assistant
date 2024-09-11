@@ -1,8 +1,8 @@
 package com.teachmeskills.bartender_assistant.controller;
 
-import com.teachmeskills.bartender_assistant.enums.cocktail.CocktailStatus;
 import com.teachmeskills.bartender_assistant.entity.Cocktail;
-import com.teachmeskills.bartender_assistant.repository.CocktailRepository;
+import com.teachmeskills.bartender_assistant.service.CocktailServiceImpl;
+import com.teachmeskills.bartender_assistant.validator.CocktailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CocktailController {
 
     @Autowired
-    private CocktailRepository cocktailRepository;
+    private CocktailServiceImpl cocktailService;
 
     @GetMapping(value = "/create")
     public ModelAndView fillCreateCocktailForm() {
@@ -27,9 +27,8 @@ public class CocktailController {
 
     @PostMapping(value = "/create")
     public ModelAndView createCocktail(@ModelAttribute Cocktail cocktail, Model model) {
-        if (!cocktail.getName().isEmpty() && !cocktail.getDescription().isEmpty()) {
-            cocktail.setStatus(CocktailStatus.defaultStatus().getStatus());
-            cocktailRepository.save(cocktail);
+        if (CocktailValidator.isCocktailValid(cocktail)) {
+            cocktailService.createCocktail(cocktail);
             String message = String.format("Cocktail with '%s' id has been created successfully!", cocktail.getId());
             model.addAttribute("message", message);
             return new ModelAndView("create/createCocktail", "cocktail", new Cocktail());
@@ -40,11 +39,12 @@ public class CocktailController {
 
     @GetMapping(value = "/get")
     public ModelAndView getCocktail(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        if (id != null && cocktailRepository.existsById(id)) {
-            Cocktail requestedCocktail = cocktailRepository.findById(id).orElse(null);
-            model.addAttribute("cocktail", requestedCocktail);
+        if (cocktailService.isCocktailExist(id)) {
+            Cocktail cocktail = cocktailService.getCocktail(id);
+            model.addAttribute("cocktail", cocktail);
             return new ModelAndView("get/getCocktail");
         }
+        model.addAttribute("message", "Please, fill in valid data.");
         return new ModelAndView("get/getCocktailForm", "cocktail", new Cocktail());
     }
 
@@ -55,12 +55,13 @@ public class CocktailController {
 
     @PostMapping(value = "/update")
     public ModelAndView updateCocktail(@ModelAttribute Cocktail cocktail, Model model) {
-        if (cocktailRepository.existsById(cocktail.getId())) {
-            cocktailRepository.save(cocktail);
+        if (cocktailService.isCocktailExist(cocktail.getId())) {
+            cocktailService.createCocktail(cocktail);
             String message = String.format("Cocktail with '%s' id has been updated successfully!", cocktail.getId());
             model.addAttribute("message", message);
             return new ModelAndView("update/updateCocktail", "cocktail", new Cocktail());
         }
+        model.addAttribute("message", "Please, fill in valid data.");
         return new ModelAndView("update/updateCocktailForm", "cocktail", new Cocktail());
     }
 
@@ -71,8 +72,8 @@ public class CocktailController {
 
     @PostMapping(value = "/delete")
     public ModelAndView deleteStudent(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        if (cocktailRepository.existsById(id)) {
-            cocktailRepository.deleteById(id);
+        if (cocktailService.isCocktailExist(id)) {
+            cocktailService.deleteCocktail(id);
             String message = String.format("Cocktail with '%s' id has been deleted successfully!", id);
             model.addAttribute("message", message);
             return new ModelAndView("create/createCocktail", "cocktail", new Cocktail());
