@@ -66,7 +66,7 @@
     <h2 class="mt-5">Register</h2>
     <div class="form-container">
         <p class="text-warning">${message}</p>
-        <form:form action="${pageContext.request.contextPath}/user/registration" method="post" modelAttribute="user">
+        <form:form action="${pageContext.request.contextPath}/user/registration" method="post" modelAttribute="userCreateDto">
             <div class="form-group mb-3">
                 <label for="username">Username:</label>
                 <form:input type="text" path="username" class="form-control" id="username"/>
