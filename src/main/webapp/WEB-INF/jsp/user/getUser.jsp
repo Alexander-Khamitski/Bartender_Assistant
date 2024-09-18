@@ -10,7 +10,7 @@
 <p>username: ${user.username}</p>
 <p>login: ${user.login}</p>
 <p>password: ${user.password}</p>
-<p>role: ${user.roleId}</p>
+<p>role: ${user.role}</p>
 <br>
 <a href="/user/get">Get user form</a>
 </body>

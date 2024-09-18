@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <html>
@@ -99,8 +100,13 @@
         </ul>
         <!-- Login and registration buttons -->
         <div class="d-flex">
-            <a class="btn btn-lg me-2" href="/cocktail/create">Log in</a>
-            <a class="btn btn-lg" href="/user/registration">Join Now</a>
+            <sec:authorize access="!isAuthenticated()">
+                <a class="btn btn-lg me-2" href="/main/signin">Sign In</a>
+                <a class="btn btn-lg" href="/main/registration">Join Now</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+                <a class="btn btn-lg" href="/logout">Log Out</a>
+            </sec:authorize>
         </div>
     </div>
 </nav>

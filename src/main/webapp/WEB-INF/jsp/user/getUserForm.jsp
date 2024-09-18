@@ -46,14 +46,15 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="form-container">
-        <p>${message}</p>
-        <div class="d-flex justify-content-between mt-4">
-            <a href="/main" class="btn btn-primary half-width">Login</a> <!-- TODO: update with redirecting to login page -->
-            <a href="/main" class="btn btn-secondary half-width">Main Page</a>
-        </div>
+<h2>${message}</h2>
+<form action="/admin/get" method="get">
+    <div>
+        <label for="id"><h3>Enter ID:</h3></label>
+        <input type="number" id="id" name="id" />
     </div>
-</div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
 </body>
 </html>

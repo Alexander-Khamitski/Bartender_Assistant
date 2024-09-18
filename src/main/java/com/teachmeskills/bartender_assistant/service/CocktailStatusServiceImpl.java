@@ -1,7 +1,7 @@
 package com.teachmeskills.bartender_assistant.service;
 
+import com.teachmeskills.bartender_assistant.consts.CocktailStatusIdsConsts;
 import com.teachmeskills.bartender_assistant.entity.CocktailStatus;
-import com.teachmeskills.bartender_assistant.enums.cocktail.CocktailStatusEnum;
 import com.teachmeskills.bartender_assistant.repository.CocktailStatusRepository;
 import com.teachmeskills.bartender_assistant.service.impl.CocktailStatusService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class CocktailStatusServiceImpl implements CocktailStatusService {
 
     @Override
     public CocktailStatus getDefaultCocktailStatus() {
-        return cocktailStatusRepository.findById(CocktailStatusEnum.defaultStatus().getId())
+        return cocktailStatusRepository.findById(CocktailStatusIdsConsts.IN_REVIEW)
                                        .orElseThrow(() -> new IllegalArgumentException("Unexpected status id!"));
     }
 }
