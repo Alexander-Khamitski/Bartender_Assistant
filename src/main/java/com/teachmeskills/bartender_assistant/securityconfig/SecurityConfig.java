@@ -25,13 +25,13 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/admin/**", "/admin/get").hasRole("admin")
+                        .requestMatchers("/admin/**").hasRole("admin")
                         .requestMatchers("/bartender/**").hasRole("bartender")
                         .requestMatchers("/user/**", "/user/get").hasRole("user")
-                        .requestMatchers("/main", "/main/signin", "/main/registration", "/main/welcomePage", "/login", "/logout").permitAll()
+                        .requestMatchers("/main/**", "/signin", "/registration", "/login", "/logout").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll())
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/main/signin")
+                        .loginPage("/signin")
                         .loginProcessingUrl("/login")
                         .usernameParameter("login")
                         .passwordParameter("password")

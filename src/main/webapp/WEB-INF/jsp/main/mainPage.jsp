@@ -86,10 +86,10 @@
         <!-- Navigation links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="/home">Home</a>
+                <a class="nav-link" href="/main">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/cocktails">Cocktails</a>
+                <a class="nav-link" href="/main/cocktails">Cocktails</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/recipes">Recipes</a>
@@ -97,12 +97,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="/reviews">Reviews</a>
             </li>
+            <sec:authorize access="hasRole('admin')">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/users">Users</a>
+                </li>
+            </sec:authorize>
         </ul>
         <!-- Login and registration buttons -->
         <div class="d-flex">
             <sec:authorize access="!isAuthenticated()">
-                <a class="btn btn-lg me-2" href="/main/signin">Sign In</a>
-                <a class="btn btn-lg" href="/main/registration">Join Now</a>
+                <a class="btn btn-lg me-2" href="/signin">Sign In</a>
+                <a class="btn btn-lg" href="/registration">Join Now</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
                 <a class="btn btn-lg" href="/logout">Log Out</a>

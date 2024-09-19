@@ -50,7 +50,7 @@
     <div class="form-container">
         <p>${message}</p>
         <div class="d-flex justify-content-between mt-4">
-            <a href="/main/signin" class="btn btn-primary half-width">Sign In</a>
+            <a href="/signin" class="btn btn-primary half-width">Sign In</a>
             <a href="/main" class="btn btn-secondary half-width">Main Page</a>
         </div>
     </div>

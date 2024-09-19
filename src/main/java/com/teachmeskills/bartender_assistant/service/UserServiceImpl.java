@@ -9,6 +9,8 @@ import com.teachmeskills.bartender_assistant.repository.UserRepository;
 import com.teachmeskills.bartender_assistant.service.impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -49,12 +51,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO getUserDto(int id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Unexpected user id!"));
+        return userMapper.toDTO(user);
+    }
+
+    @Override
     public User getUser(int id) {
         return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Unexpected user id!"));
     }
 
     @Override
+    public User updateUser(User user) {
+        String rawPassword = user.getPassword();
+        user.setPassword(passwordEncoder.encode(rawPassword));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
     public boolean isUserExist(int id) {
         return userRepository.existsById(id);
+    }
+
+    public Page<UserDTO> getAllUsers(Pageable pageable) {
+        Page<User> users = userRepository.findAll(pageable);
+        return users.map(user -> userMapper.toDTO(user));
     }
 }

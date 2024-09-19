@@ -1,8 +1,14 @@
 package com.teachmeskills.bartender_assistant.controller;
 
-import com.teachmeskills.bartender_assistant.entity.User;
+import java.util.List;
+
+import com.teachmeskills.bartender_assistant.consts.PaginationConsts;
+import com.teachmeskills.bartender_assistant.dto.UserDTO;
 import com.teachmeskills.bartender_assistant.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,14 +23,15 @@ public class AdminController {
     @Autowired
     private UserServiceImpl userService;
 
-    @GetMapping(value = "/get")
-    public ModelAndView getUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        if (id != null && userService.isUserExist(id)) {
-            User user = userService.getUser(id);
-            model.addAttribute("user", user);
-            return new ModelAndView("user/getUser");
-        }
-        model.addAttribute("message", "Please, fill in valid data.");
-        return new ModelAndView("user/getUserForm");
+    @GetMapping("/users")
+    public ModelAndView showCommentPage(@RequestParam(defaultValue = "0") int page, Model model) {
+        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE);
+        Page<UserDTO> pageComments = userService.getAllUsers(paging);
+        List<UserDTO> users = pageComments.getContent();
+        model.addAttribute("users", users);
+        model.addAttribute("currentPage", pageComments.getNumber());
+        model.addAttribute("totalPages", pageComments.getTotalPages());
+        model.addAttribute("totalItems", pageComments.getTotalElements());
+        return new ModelAndView("get/user/getUsers");
     }
 }

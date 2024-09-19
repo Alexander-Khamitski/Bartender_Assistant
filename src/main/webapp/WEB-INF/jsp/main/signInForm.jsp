@@ -73,6 +73,15 @@
             color: #fff; /* Change icon color on hover */
             background-color: #333; /* Darker background on hover */
         }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto; /* Center the form */
+            padding: 20px;
+            border: 2px solid #ffc107; /* Yellow border */
+            border-radius: 10px;
+            background-color: #1b1b1b; /* Form background */
+        }
     </style>
 </head>
 <body>
@@ -97,7 +106,7 @@
                 <a href="/main" class="btn btn-secondary w-100 mt-2">Back to Main</a>
                 <br>
                 <label>No account?</label>
-                <a href="/main/registration" class="btn btn-secondary w-100 mt-2">Registration</a>
+                <a href="/registration" class="btn btn-secondary w-100 mt-2">Registration</a>
             </div>
         </form>
     </div>

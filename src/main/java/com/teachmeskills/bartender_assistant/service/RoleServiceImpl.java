@@ -17,7 +17,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getDefaultRole() {
-        return roleRepository.findById(RoleIdsConsts.ROLE_USER)
+        return roleRepository.findById(RoleIdsConsts.ROLE_ADMIN)
                              .orElseThrow(() -> new IllegalArgumentException("Unexpected role id!"));
     }
 }

@@ -63,10 +63,15 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="mt-5">Register</h2>
+    <h2 class="mt-5">Update user:</h2>
     <div class="form-container">
         <p class="text-warning">${message}</p>
-        <form:form action="${pageContext.request.contextPath}/user/registration" method="post" modelAttribute="userCreateDto">
+        <form:form action="${pageContext.request.contextPath}/admin/user/update" method="post" modelAttribute="user">
+            <div class="form-group mb-3">
+                <label for="username">ID:</label>
+                <form:input type="number" path="id" class="form-control" id="id"/>
+                <form:errors path="id" cssClass="text-danger"/>
+            </div>
             <div class="form-group mb-3">
                 <label for="username">Username:</label>
                 <form:input type="text" path="username" class="form-control" id="username"/>
@@ -83,7 +88,12 @@
                 <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
                 <form:errors path="password" cssClass="text-danger"/>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Register</button>
+            <div class="form-group mb-3">
+                <label for="role">Role ID (1 - admin, 2 - user, 3 - bartender):</label>
+                <form:input type="number" path="role" class="form-control" id="role"/>
+                <form:errors path="role" cssClass="text-danger"/>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Update user</button>
             <a href="/main" class="btn btn-secondary w-100 mt-2">Back to Main</a>
         </form:form>
     </div>

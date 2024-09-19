@@ -82,7 +82,7 @@
     <h2 class="mt-5">Register</h2>
     <div class="form-container">
         <p class="text-warning">${message}</p>
-        <form:form action="${pageContext.request.contextPath}/main/registration" method="post" modelAttribute="userCreateDto">
+        <form:form action="${pageContext.request.contextPath}/registration" method="post" modelAttribute="userCreateDto">
             <div class="form-group mb-3">
                 <form:errors path="username" cssClass="error"/>
                 <label for="username" path="username">Username:</label>
