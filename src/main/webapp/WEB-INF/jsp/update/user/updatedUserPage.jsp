@@ -42,6 +42,21 @@
             border-radius: 10px;
             background-color: #1b1b1b; /* Form background */
         }
+
+        /*NavBar*/
+        .navbar {
+            background-color: #1b1b1b;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+            font-size: 1.5em;
+            font-family: serif;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
     </style>
 </head>
 <body>

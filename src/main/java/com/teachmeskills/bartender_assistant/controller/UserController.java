@@ -2,6 +2,7 @@ package com.teachmeskills.bartender_assistant.controller;
 
 import com.teachmeskills.bartender_assistant.dto.UserDTO;
 import com.teachmeskills.bartender_assistant.entity.User;
+import com.teachmeskills.bartender_assistant.service.RoleServiceImpl;
 import com.teachmeskills.bartender_assistant.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private RoleServiceImpl roleService;
 
     @GetMapping(value = "/admin/user/get")
     public ModelAndView getUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
@@ -30,7 +33,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/admin/user/update")
-    public ModelAndView updateUser() {
+    public ModelAndView updateUser(Model model) {
+        model.addAttribute("roles", roleService.getAllRoles());
         return new ModelAndView("update/user/updateUserForm", "user", new User());
     }
 

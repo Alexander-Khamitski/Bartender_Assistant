@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     <style>
         body {
             background-color: #2d2d2d;
@@ -61,12 +62,20 @@
 </head>
 <body>
 <div class="container">
+    <h2 class="mt-5">Create ingredient</h2>
     <div class="form-container">
-        <p>${message}</p>
-        <div class="d-flex justify-content-between mt-4">
-            <a href="/cocktails" class="btn btn-secondary w-100 btn-back">Back to cocktails</a>
-        </div>
+        <form:form action="${pageContext.request.contextPath}/ingredient/create" method="post" modelAttribute="ingredient">
+            <p class="text-warning">${message}</p>
+            <div class="form-group mb-3">
+                <form:errors path="name" cssClass="mt-5"/>
+                <label for="name" path="name">Name:</label>
+                <form:input type="text" path="name" class="form-control" id="name"/>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Create ingredient</button>
+            <a href="/ingredients" class="btn btn-secondary w-100 mt-2">Back</a>
+        </form:form>
     </div>
 </div>
 </body>
 </html>
+

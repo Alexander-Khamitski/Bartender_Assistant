@@ -75,7 +75,7 @@ public class CocktailController {
     }
 
     @PostMapping(value = "/delete")
-    public ModelAndView deleteStudent(@RequestParam(value = "id", required = false) Integer id, Model model) {
+    public ModelAndView deleteCocktail(@RequestParam(value = "id", required = false) Integer id, Model model) {
         if (cocktailService.isCocktailExist(id)) {
             cocktailService.deleteCocktail(id);
             String message = String.format("Cocktail with '%s' id has been deleted successfully!", id);

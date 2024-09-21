@@ -106,8 +106,11 @@
                 <form:errors path="password" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
-                <label for="role">Role ID (1 - admin, 2 - user, 3 - bartender):</label>
-                <form:input type="number" path="role" class="form-control" id="role"/>
+                <label for="role">Role:</label>
+                <form:select path="role" class="form-control" id="role">
+                    <form:option value="" label="-- Select Role --"/>
+                    <form:options items="${roles}" itemValue="id" itemLabel="roleName"/>
+                </form:select>
                 <form:errors path="role" cssClass="text-danger"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Update user</button>

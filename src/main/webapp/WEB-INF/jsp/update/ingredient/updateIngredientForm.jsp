@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     <style>
         body {
             background-color: #2d2d2d;
@@ -26,12 +27,6 @@
         .btn {
             background-color: #ffc107;
             color: black;
-        }
-
-        .carousel-item p {
-            font-size: 1.5em;
-            font-style: italic;
-            color: #f8f9fa;
         }
 
         .form-container {
@@ -61,11 +56,22 @@
 </head>
 <body>
 <div class="container">
+    <h2 class="mt-5">Update ingredient:</h2>
     <div class="form-container">
-        <p>${message}</p>
-        <div class="d-flex justify-content-between mt-4">
-            <a href="/cocktails" class="btn btn-secondary w-100 btn-back">Back to cocktails</a>
-        </div>
+        <form:form action="${pageContext.request.contextPath}/ingredient/update" method="post" modelAttribute="ingredient">
+            <div class="form-group mb-3">
+                <label for="id">ID:</label>
+                <form:input type="text" path="id" class="form-control" id="id"/>
+                <form:errors path="id" cssClass="text-danger"/>
+            </div>
+            <div class="form-group mb-3">
+                <label for="name">Name:</label>
+                <form:input type="text" path="name" class="form-control" id="name"/>
+                <form:errors path="name" cssClass="text-danger"/>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Update ingredient</button>
+            <a href="/ingredients" class="btn btn-secondary w-100 mt-2">Back</a>
+        </form:form>
     </div>
 </div>
 </body>

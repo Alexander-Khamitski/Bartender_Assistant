@@ -59,14 +59,20 @@
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <div class="form-container">
-        <p>${message}</p>
-        <div class="d-flex justify-content-between mt-4">
-            <a href="/cocktails" class="btn btn-secondary w-100 btn-back">Back to cocktails</a>
+<div class="form-container">
+    <h2>Get ingredient by ID:</h2>
+    <form action="/ingredient/get" method="get">
+        <div class="form-group">
+            <br>
+            <label for="id">Enter ID:</label>
+            <input type="number" id="id" name="id" class="form-control" required/>
+            <br>
         </div>
-    </div>
+        <button type="submit" class="btn w-100">Get ingredient</button>
+        <a href="/ingredients" class="btn btn-secondary w-100 mt-2">Back</a>
+    </form>
 </div>
 </body>
 </html>

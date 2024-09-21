@@ -1,10 +1,9 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+    <meta charset="UTF-8">
+    <title>User Info</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -17,10 +16,9 @@
             padding: 0px 50px 200px 50px;
         }
 
-        h2 {
+        h1, h2, h3 {
             font-family: 'Georgia', serif;
             color: #f8f9fa;
-            text-align: center;
         }
 
         .btn {
@@ -60,13 +58,10 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="form-container">
-        <p>${message}</p>
-        <div class="d-flex justify-content-between mt-4">
-            <a href="/cocktails" class="btn btn-secondary w-100 btn-back">Back to cocktails</a>
-        </div>
-    </div>
+<div class="form-container">
+    <h2>Ingredient info:</h2>
+    <p><strong>Name:</strong> ${ingredient.name}</p>
+    <a href="/ingredients" class="btn btn-secondary w-100 btn-back">Back to ingredients</a>
 </div>
 </body>
 </html>

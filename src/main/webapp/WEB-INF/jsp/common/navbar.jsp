@@ -27,6 +27,11 @@
                     <a class="nav-link" href="/admin/users">Users</a>
                 </li>
             </sec:authorize>
+            <sec:authorize access="hasRole('admin') or hasRole('bartender')">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ingredients">Ingredients</a>
+                </li>
+            </sec:authorize>
         </ul>
         <!-- Login and registration buttons -->
         <div class="d-flex">

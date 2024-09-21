@@ -116,32 +116,20 @@
 
 <body>
 <div class="form-container">
-    <h2>All cocktails:</h2>
+    <h2>All ingredients:</h2>
     <form>
         <table class="table table-hover">
             <thead>
             <tr>
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <th>ID:</th>
-                </sec:authorize>
+                <th>ID:</th>
                 <th>Name:</th>
-                <th>Description:</th>
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <th>Status:</th>
-                </sec:authorize>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="cocktail" items="${cocktails}">
+            <c:forEach var="ingredient" items="${ingredients}">
                 <tr>
-                    <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                        <td>${cocktail.id}</td>
-                    </sec:authorize>
-                    <td>${cocktail.name}</td>
-                    <td>${cocktail.description}</td>
-                    <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                        <td>${cocktail.status.status}</td>
-                    </sec:authorize>
+                    <td>${ingredient.id}</td>
+                    <td>${ingredient.name}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -168,14 +156,13 @@
             </ul>
         </nav>
 
+
         <div class="text-center">
             <div class="col-12 btn-group">
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <a href="/cocktail/create" class="btn btn-group w-100 mt-2">Create cocktail</a>
-                    <a href="/cocktail/get" class="btn btn-group w-100 mt-2">Get cocktail</a>
-                    <a href="/cocktail/update" class="btn btn-group w-100 mt-2">Update cocktail</a>
-                    <a href="/cocktail/delete" class="btn btn-group w-100 mt-2">Delete cocktail</a>
-                </sec:authorize>
+                <a href="/ingredient/create" class="btn btn-group w-100 mt-2">Create ingredient</a>
+                <a href="/ingredient/get" class="btn btn-group w-100 mt-2">Get ingredient</a>
+                <a href="/ingredient/update" class="btn btn-group w-100 mt-2">Update ingredient</a>
+                <a href="/ingredient/delete" class="btn btn-group w-100 mt-2">Delete ingredient</a>
             </div>
         </div>
     </form>
