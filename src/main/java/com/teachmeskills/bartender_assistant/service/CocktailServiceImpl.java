@@ -20,7 +20,7 @@ public class CocktailServiceImpl implements CocktailService {
 
     @Override
     public void createCocktail(Cocktail cocktail) {
-        cocktail.setStatusId(cocktailStatusService.getDefaultCocktailStatus());
+        cocktail.setStatus(cocktailStatusService.getDefaultCocktailStatus());
         cocktailRepository.save(cocktail);
     }
 
@@ -31,8 +31,8 @@ public class CocktailServiceImpl implements CocktailService {
     }
 
     @Override
-    public void updateCocktail() {
-
+    public void updateCocktail(Cocktail cocktail) {
+        cocktailRepository.save(cocktail);
     }
 
     @Override

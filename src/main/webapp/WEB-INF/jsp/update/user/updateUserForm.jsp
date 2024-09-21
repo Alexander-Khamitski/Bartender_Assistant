@@ -29,12 +29,6 @@
             color: black;
         }
 
-        /*.carousel-item p {*/
-        /*    font-size: 1.5em;*/
-        /*    font-style: italic;*/
-        /*    color: #f8f9fa;*/
-        /*}*/
-
         .form-container {
             max-width: 600px;
             margin: 0 auto; /* Center the form */
@@ -89,7 +83,6 @@
 <div class="container">
     <h2 class="mt-5">Update user:</h2>
     <div class="form-container">
-        <p class="text-warning">${message}</p>
         <form:form action="${pageContext.request.contextPath}/admin/user/update" method="post" modelAttribute="user">
             <div class="form-group mb-3">
                 <label for="username">ID:</label>

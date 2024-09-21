@@ -34,5 +34,5 @@ public class Cocktail {
 
     @ManyToOne
     @JoinColumn(name = "status_id")
-    private CocktailStatus statusId;
+    private CocktailStatus status;
 }

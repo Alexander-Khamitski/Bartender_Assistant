@@ -121,15 +121,27 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
+                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
+                    <th>ID:</th>
+                </sec:authorize>
+                <th>Name:</th>
+                <th>Description:</th>
+                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
+                    <th>Status:</th>
+                </sec:authorize>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="cocktail" items="${cocktails}">
                 <tr>
+                    <sec:authorize access="hasRole('admin') or hasRole('bartender')">
+                        <td>${cocktail.id}</td>
+                    </sec:authorize>
                     <td>${cocktail.name}</td>
                     <td>${cocktail.description}</td>
+                    <sec:authorize access="hasRole('admin') or hasRole('bartender')">
+                        <td>${cocktail.status.status}</td>
+                    </sec:authorize>
                 </tr>
             </c:forEach>
             </tbody>
@@ -159,11 +171,11 @@
 
         <div class="text-center">
             <div class="col-12 btn-group">
-                <sec:authorize access="hasRole('admin')">
-                    <a href="/admin/cocktail/create" class="btn btn-group w-100 mt-2">Create cocktail</a>
-                    <a href="/admin/cocktail/get" class="btn btn-group w-100 mt-2">Get cocktail</a>
-                    <a href="/admin/cocktail/update" class="btn btn-group w-100 mt-2">Update cocktail</a>
-                    <a href="/admin/cocktail/delete" class="btn btn-group w-100 mt-2">Delete cocktail</a>
+                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
+                    <a href="/cocktail/create" class="btn btn-group w-100 mt-2">Create cocktail</a>
+                    <a href="/cocktail/get" class="btn btn-group w-100 mt-2">Get cocktail</a>
+                    <a href="/cocktail/update" class="btn btn-group w-100 mt-2">Update cocktail</a>
+                    <a href="/cocktail/delete" class="btn btn-group w-100 mt-2">Delete cocktail</a>
                 </sec:authorize>
             </div>
         </div>

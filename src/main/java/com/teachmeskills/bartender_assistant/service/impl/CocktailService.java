@@ -10,7 +10,7 @@ public interface CocktailService {
 
     Cocktail getCocktail(int id);
 
-    void updateCocktail();
+    void updateCocktail(Cocktail cocktail);
 
     void deleteCocktail(int id);
 

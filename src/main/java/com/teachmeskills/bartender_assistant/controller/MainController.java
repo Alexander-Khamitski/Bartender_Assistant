@@ -37,6 +37,6 @@ public class MainController {
         model.addAttribute("currentPage", pageComments.getNumber());
         model.addAttribute("totalPages", pageComments.getTotalPages());
         model.addAttribute("totalItems", pageComments.getTotalElements());
-        return new ModelAndView("get/getCocktails");
+        return new ModelAndView("get/cocktail/getCocktails");
     }
 }

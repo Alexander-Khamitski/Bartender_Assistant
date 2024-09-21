@@ -23,6 +23,17 @@
             text-align: center;
         }
 
+        .btn {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .carousel-item p {
+            font-size: 1.5em;
+            font-style: italic;
+            color: #f8f9fa;
+        }
+
         .form-container {
             max-width: 600px;
             margin: 0 auto; /* Center the form */
@@ -30,19 +41,6 @@
             border: 2px solid #ffc107; /* Yellow border */
             border-radius: 10px;
             background-color: #1b1b1b; /* Form background */
-        }
-
-        .btn {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .half-width {
-            width: 48%; /* Set buttons to 48% width to allow space between them */
         }
 
         /*NavBar*/
@@ -66,8 +64,7 @@
     <div class="form-container">
         <p>${message}</p>
         <div class="d-flex justify-content-between mt-4">
-            <a href="/signin" class="btn btn-primary half-width">Sign In</a>
-            <a href="/main" class="btn btn-secondary half-width">Main Page</a>
+            <a href="/cocktail/delete" class="btn btn-secondary w-100 btn-back">Back</a>
         </div>
     </div>
 </div>
