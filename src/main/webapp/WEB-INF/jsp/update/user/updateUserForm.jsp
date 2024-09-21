@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +24,17 @@
             text-align: center;
         }
 
+        .btn {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        /*.carousel-item p {*/
+        /*    font-size: 1.5em;*/
+        /*    font-style: italic;*/
+        /*    color: #f8f9fa;*/
+        /*}*/
+
         .form-container {
             max-width: 600px;
             margin: 0 auto; /* Center the form */
@@ -32,32 +44,44 @@
             background-color: #1b1b1b; /* Form background */
         }
 
-        .btn {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .text-warning {
-            color: red !important; /* Ensure text-warning class uses red color */
-            text-align: center;
-            font-size: 1.2em; /* Slightly larger font size */
-            margin-top: 20px;
-        }
-
         .password-container {
             position: relative;
         }
 
+        .password-container input {
+            flex: 1;
+            padding-right: 40px; /* Add some padding to the right for the icon */
+        }
+
         .password-container .toggle-password {
             position: absolute;
-            top: 50%;
             right: 10px;
-            transform: translateY(-50%);
+            top: 50%;
             cursor: pointer;
+            color: #ffc107; /* Yellow color for contrast */
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            border-radius: 50%; /* Rounded background */
+        }
+
+        .password-container .toggle-password:hover {
+            color: #fff; /* Change icon color on hover */
+            background-color: #333; /* Darker background on hover */
+        }
+
+        /*NavBar*/
+        .navbar {
+            background-color: #1b1b1b;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+            font-size: 1.5em;
+            font-family: serif;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
         }
     </style>
 </head>
@@ -94,7 +118,7 @@
                 <form:errors path="role" cssClass="text-danger"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Update user</button>
-            <a href="/main" class="btn btn-secondary w-100 mt-2">Back to Main</a>
+            <a href="/admin/users" class="btn btn-secondary w-100 mt-2">Back</a>
         </form:form>
     </div>
 </div>

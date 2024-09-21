@@ -1,3 +1,6 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +24,11 @@
             text-align: center;
         }
 
+        .btn {
+            background-color: #ffc107;
+            color: black;
+        }
+
         .form-container {
             max-width: 600px;
             margin: 0 auto; /* Center the form */
@@ -37,6 +45,15 @@
 
         .form-group label {
             font-weight: bold;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto; /* Center the form */
+            padding: 20px;
+            border: 2px solid #ffc107; /* Yellow border */
+            border-radius: 10px;
+            background-color: #1b1b1b; /* Form background */
         }
 
         .text-warning {
@@ -74,13 +91,19 @@
             background-color: #333; /* Darker background on hover */
         }
 
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto; /* Center the form */
-            padding: 20px;
-            border: 2px solid #ffc107; /* Yellow border */
-            border-radius: 10px;
-            background-color: #1b1b1b; /* Form background */
+        /*NavBar*/
+        .navbar {
+            background-color: #1b1b1b;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+            font-size: 1.5em;
+            font-family: serif;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
         }
     </style>
 </head>
@@ -89,16 +112,21 @@
     <h2 class="mt-5">Sign In</h2>
     <div class="form-container">
         <p class="text-warning">${message}</p>
-        <form id="loginForm" action="/login" method="post">
+        <form:form modelAttribute="signInDTO" id="loginForm" action="/login" method="post">
             <div class="form-group mb-3">
                 <label for="login">Login:</label>
-                <input type="text" id="login" name="login" class="form-control" required maxlength="128" minlength="1">
+                <form:input path="login" class="form-control" id="login"/>
+                <form:errors path="login" cssClass="text-danger"/>
+                <c:if test="${not empty result.fieldErrorMap['login']}">
+                    <p class="text-warning">${result.fieldErrorMap['login'].defaultMessage}</p>
+                </c:if>
             </div>
             <div class="form-group mb-3">
                 <label for="password">Password:</label>
                 <div class="password-container">
-                    <input type="password" id="password" name="password" class="form-control" required minlength="1">
+                    <form:password path="password" class="form-control" id="password"/>
                     <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
+                    <form:errors path="password" cssClass="text-danger"/>
                 </div>
             </div>
             <button type="submit" class="btn btn-secondary w-100 mt-2">Sign in</button>
@@ -108,7 +136,7 @@
                 <label>No account?</label>
                 <a href="/registration" class="btn btn-secondary w-100 mt-2">Registration</a>
             </div>
-        </form>
+        </form:form>
     </div>
 </div>
 

@@ -1,3 +1,4 @@
+<%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,20 +14,6 @@
             background-color: #2d2d2d;
             color: #f8f9fa;
             padding: 0px 50px 200px 50px;
-        }
-
-        .navbar {
-            background-color: #1b1b1b;
-        }
-
-        .nav-link {
-            color: #f8f9fa;
-            font-size: 1.5em;
-            font-family: serif;
-        }
-
-        .nav-link:hover {
-            color: #ffc107;
         }
 
         h1, h2, h3 {
@@ -53,40 +40,24 @@
             border-radius: 10px;
             background-color: #1b1b1b; /* Form background */
         }
+
+        /*NavBar*/
+        .navbar {
+            background-color: #1b1b1b;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+            font-size: 1.5em;
+            font-family: serif;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
     </style>
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <!-- Label -->
-        <a class="navbar-brand" href="main">
-            <img src="${pageContext.request.contextPath}/images/home/label.png" alt="Bartender Assistant - label"
-                 width="120" height="60">
-        </a>
-        <!-- Navigation links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="/main">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/main/cocktails">Cocktails</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/recipes">Recipes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reviews">Reviews</a>
-            </li>
-            <sec:authorize access="hasRole('admin')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/users">Users</a>
-                </li>
-            </sec:authorize>
-        </ul>
-    </div>
-</nav>
-
 <div class="form-container">
     <h2>Requested user info:</h2>
     <p><strong>ID:</strong> ${userDto.id}</p>

@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <html>
@@ -16,20 +17,6 @@
             background-color: #2d2d2d;
             color: #f8f9fa;
             padding: 0px 50px 200px 50px;
-        }
-
-        .navbar {
-            background-color: #1b1b1b;
-        }
-
-        .nav-link {
-            color: #f8f9fa;
-            font-size: 1.5em;
-            font-family: serif;
-        }
-
-        .nav-link:hover {
-            color: #ffc107;
         }
 
         h1, h2, h3 {
@@ -71,51 +58,24 @@
             font-style: italic;
             color: #f8f9fa;
         }
+
+        /*NavBar*/
+        .navbar {
+            background-color: #1b1b1b;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+            font-size: 1.5em;
+            font-family: serif;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
     </style>
 </head>
 <body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <!-- Label -->
-        <a class="navbar-brand" href="main">
-            <img src="${pageContext.request.contextPath}/images/home/label.png" alt="Bartender Assistant - label"
-                 width="120" height="60">
-        </a>
-        <!-- Navigation links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="/main">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/main/cocktails">Cocktails</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/recipes">Recipes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reviews">Reviews</a>
-            </li>
-            <sec:authorize access="hasRole('admin')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/users">Users</a>
-                </li>
-            </sec:authorize>
-        </ul>
-        <!-- Login and registration buttons -->
-        <div class="d-flex">
-            <sec:authorize access="!isAuthenticated()">
-                <a class="btn btn-lg me-2" href="/signin">Sign In</a>
-                <a class="btn btn-lg" href="/registration">Join Now</a>
-            </sec:authorize>
-            <sec:authorize access="isAuthenticated()">
-                <a class="btn btn-lg" href="/logout">Log Out</a>
-            </sec:authorize>
-        </div>
-    </div>
-</nav>
-
 <!-- Main Section -->
 <div class="container">
     <div class="main-heading">

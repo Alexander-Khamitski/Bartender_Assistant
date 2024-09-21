@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +24,17 @@
             text-align: center;
         }
 
+        .btn {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .carousel-item p {
+            font-size: 1.5em;
+            font-style: italic;
+            color: #f8f9fa;
+        }
+
         .form-container {
             max-width: 600px;
             margin: 0 auto; /* Center the form */
@@ -32,33 +44,23 @@
             background-color: #1b1b1b; /* Form background */
         }
 
-        .btn {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .text-warning {
-            color: red !important; /* Ensure text-warning class uses red color */
-            text-align: center;
-            font-size: 1.2em; /* Slightly larger font size */
-            margin-top: 20px;
-        }
-
         .password-container {
             position: relative;
+            align-items: center;
+            position: relative;
+        }
+
+        .password-container input {
+            flex: 1;
+            padding-right: 40px; /* Add some padding to the right for the icon */
         }
 
         .password-container .toggle-password {
             position: absolute;
-            top: 50%;
             right: 10px;
+            top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            font-size: 1.5em; /* Larger icon size */
             color: #ffc107; /* Yellow color for contrast */
             padding: 5px;
             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
@@ -75,16 +77,30 @@
             align-items: center;
             position: relative;
         }
+
+        /*NavBar*/
+        .navbar {
+            background-color: #1b1b1b;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+            font-size: 1.5em;
+            font-family: serif;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2 class="mt-5">Register</h2>
+    <h2 class="mt-5">Registration</h2>
     <div class="form-container">
-        <p class="text-warning">${message}</p>
         <form:form action="${pageContext.request.contextPath}/registration" method="post" modelAttribute="userCreateDto">
             <div class="form-group mb-3">
-                <form:errors path="username" cssClass="error"/>
+                <form:errors path="username" cssClass="mt-5"/>
                 <label for="username" path="username">Username:</label>
                 <form:input type="text" path="username" class="form-control" id="username"/>
             </div>

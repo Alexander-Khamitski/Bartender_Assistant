@@ -1,5 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,14 +15,13 @@
         body {
             background-color: #2d2d2d;
             color: #f8f9fa;
-            padding: 50px 0;
+            padding: 0px 50px 200px 50px;
         }
 
         h2 {
             font-family: 'Georgia', serif;
             color: #f8f9fa;
             text-align: center;
-            margin-bottom: 30px;
         }
 
         .form-container {
@@ -93,9 +94,9 @@
             width: auto; /* Убирает 100% ширину для кнопок */
         }
 
+        /*NavBar*/
         .navbar {
             background-color: #1b1b1b;
-            margin-top: 0; /* Убираем нижний отступ у navbar */
         }
 
         .nav-link {
@@ -109,38 +110,8 @@
         }
     </style>
 </head>
-<body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <!-- Label -->
-        <a class="navbar-brand" href="main">
-            <img src="${pageContext.request.contextPath}/images/home/label.png" alt="Bartender Assistant - label"
-                 width="120" height="60">
-        </a>
-        <!-- Navigation links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="/main">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/main/cocktails">Cocktails</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/recipes">Recipes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reviews">Reviews</a>
-            </li>
-            <sec:authorize access="hasRole('admin')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/users">Users</a>
-                </li>
-            </sec:authorize>
-        </ul>
-    </div>
-</nav>
 
+<body>
 <div class="form-container">
     <h2>All users:</h2>
     <form>

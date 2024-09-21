@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,23 +17,10 @@
             padding: 0px 50px 200px 50px;
         }
 
-        .navbar {
-            background-color: #1b1b1b;
-        }
-
-        .nav-link {
-            color: #f8f9fa;
-            font-size: 1.5em;
-            font-family: serif;
-        }
-
-        .nav-link:hover {
-            color: #ffc107;
-        }
-
         h2 {
             font-family: 'Georgia', serif;
             color: #f8f9fa;
+            text-align: center;
         }
 
         .btn {
@@ -57,35 +45,6 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <!-- Label -->
-        <a class="navbar-brand" href="main">
-            <img src="${pageContext.request.contextPath}/images/home/label.png" alt="Bartender Assistant - label"
-                 width="120" height="60">
-        </a>
-        <!-- Navigation links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="/main">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/main/cocktails">Cocktails</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/recipes">Recipes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reviews">Reviews</a>
-            </li>
-            <sec:authorize access="hasRole('admin')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/users">Users</a>
-                </li>
-            </sec:authorize>
-        </ul>
-    </div>
-</nav>
 <div class="container">
     <div class="form-container">
         <p>${message}</p>

@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .usernameParameter("login")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/main")
-                        .failureUrl("/main"))
+                        .failureUrl("/signin"))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/main")
