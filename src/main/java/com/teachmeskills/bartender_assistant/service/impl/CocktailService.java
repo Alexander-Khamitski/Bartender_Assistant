@@ -1,5 +1,6 @@
 package com.teachmeskills.bartender_assistant.service.impl;
 
+import java.util.List;
 import com.teachmeskills.bartender_assistant.entity.Cocktail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,6 @@ public interface CocktailService {
     boolean isCocktailExist(int id);
 
     Page<Cocktail> getAllCocktails(Pageable pageable);
+
+    List<Cocktail> getAllCocktails();
 }

@@ -1,5 +1,7 @@
 package com.teachmeskills.bartender_assistant.service.impl;
 
+import java.util.List;
+
 import com.teachmeskills.bartender_assistant.entity.Ingredient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +19,6 @@ public interface IngredientService {
     boolean isIngredientExist(int id);
 
     Page<Ingredient> getAllIngredients(Pageable pageable);
+
+    List<Ingredient> getAllIngredients();
 }

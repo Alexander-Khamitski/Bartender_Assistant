@@ -1,5 +1,7 @@
 package com.teachmeskills.bartender_assistant.service;
 
+import java.util.List;
+
 import com.teachmeskills.bartender_assistant.entity.Ingredient;
 import com.teachmeskills.bartender_assistant.repository.IngredientRepository;
 import com.teachmeskills.bartender_assistant.service.impl.IngredientService;
@@ -45,5 +47,10 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public Page<Ingredient> getAllIngredients(Pageable pageable) {
         return ingredientRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Ingredient> getAllIngredients() {
+        return ingredientRepository.findAll();
     }
 }

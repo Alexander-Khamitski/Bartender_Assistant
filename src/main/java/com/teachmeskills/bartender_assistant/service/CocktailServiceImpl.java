@@ -1,10 +1,12 @@
 package com.teachmeskills.bartender_assistant.service;
 
+import java.util.List;
+
 import com.teachmeskills.bartender_assistant.entity.Cocktail;
 import com.teachmeskills.bartender_assistant.repository.CocktailRepository;
-import com.teachmeskills.bartender_assistant.service.impl.CocktailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.teachmeskills.bartender_assistant.service.impl.CocktailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -47,5 +49,9 @@ public class CocktailServiceImpl implements CocktailService {
 
     public Page<Cocktail> getAllCocktails(Pageable pageable) {
         return cocktailRepository.findAll(pageable);
+    }
+
+    public List<Cocktail> getAllCocktails() {
+        return cocktailRepository.findAll();
     }
 }

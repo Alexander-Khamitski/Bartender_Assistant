@@ -33,6 +33,7 @@
             background-color: #1b1b1b; /* Фоновый цвет формы */
         }
 
+        /*Table*/
         .table {
             color: #f8f9fa;
         }
@@ -46,33 +47,7 @@
             background-color: #333;
         }
 
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination .page-item {
-            list-style-type: none; /* Убираем точки */
-        }
-
-        .pagination a {
-            color: black;
-            background-color: #ffc107;
-            border: 1px solid #ffc107;
-            margin: 0 5px;
-        }
-
-        .pagination .active a {
-            background-color: #333;
-            color: white;
-        }
-
-        .pagination a:hover {
-            background-color: #555;
-            color: white;
-        }
-
+        /*Buttons*/
         .btn {
             background-color: #ffc107;
             color: black;
@@ -113,54 +88,39 @@
 
 <body>
 <div class="form-container">
-    <h2>All users:</h2>
+    <h2>'${cocktail.name}' recipe:</h2>
     <form>
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Role</th>
+                <th>ID:</th>
+                <th>Ingredient:</th>
+                <th>Amount:</th>
+                <th>Unit:</th>
+                <th>Edit:</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="user" items="${users}">
+            <c:forEach var="cocktailIngredient" items="${cocktailIngredients}">
                 <tr>
-                    <td>${user.id}</td>
-                    <td>${user.username}</td>
-                    <td>${user.role.roleName}</td>
+                    <td>${cocktailIngredient.id}</td>
+                    <td>${cocktailIngredient.ingredient.name}</td>
+                    <td>${cocktailIngredient.amount}</td>
+                    <td>${cocktailIngredient.unit}</td>
+                    <td>
+                        <a href="/cocktail/ingredient/update?id=${cocktailIngredient.id}" class="btn btn-group w-100 mt-2">Edit</a>
+                        <form action="/cocktail/ingredient/delete?id=${cocktailIngredient.id}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-group w-100 mt-2">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-
-        <!-- Горизонтальная пагинация -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="${pageUrl}?page=0" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <c:forEach var="i" begin="0" end="${totalPages - 1}">
-                    <li class="page-item ${currentPage == i ? 'active' : ''}">
-                        <a class="page-link" href="${pageUrl}?page=${i}">${i + 1}</a>
-                    </li>
-                </c:forEach>
-                <li class="page-item">
-                    <a class="page-link" href="${pageUrl}?page=${totalPages - 1}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
         <div class="text-center">
             <div class="col-12 btn-group">
-                <a href="/registration" class="btn btn-group w-100 mt-2">Create user</a>
-                <a href="/admin/user/get" class="btn btn-group w-100 mt-2">Get user</a>
-                <a href="/admin/user/update" class="btn btn-group w-100 mt-2">Update user</a>
-                <a href="/admin/user/delete" class="btn btn-group w-100 mt-2">Delete user</a>
+                <a href="/cocktail/ingredient/add?id=${cocktail.id}" class="btn btn-group w-100 mt-2">Add ingredient</a>
+                <a href="/recipes" class="btn btn-group w-100 mt-2">Back to recipes</a>
             </div>
         </div>
     </form>

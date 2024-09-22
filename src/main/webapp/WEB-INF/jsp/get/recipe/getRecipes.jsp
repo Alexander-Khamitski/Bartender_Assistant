@@ -33,6 +33,7 @@
             background-color: #1b1b1b; /* Фоновый цвет формы */
         }
 
+        /*Table*/
         .table {
             color: #f8f9fa;
         }
@@ -46,6 +47,16 @@
             background-color: #333;
         }
 
+        /*td.td-block {*/
+        /*    justify-content: center;*/
+        /*    padding: 0; !* Убираем внутренние отступы *!*/
+        /*    color: white; !* Цвет текста *!*/
+        /*    background-color: white; !* Белый фон для ячейки *!*/
+        /*    display: inline;*/
+        /*    justify-content: center;*/
+        /*}*/
+
+        /*Pagination*/
         .pagination {
             display: flex;
             justify-content: center;
@@ -73,10 +84,10 @@
             color: white;
         }
 
+        /*Buttons*/
         .btn {
             background-color: #ffc107;
             color: black;
-            border: none; /* Убираем границу у кнопок */
         }
 
         .btn:hover {
@@ -91,7 +102,6 @@
 
         .btn-group .btn {
             margin: 0 5px; /* Добавляет немного пространства между кнопками */
-            width: auto; /* Убирает 100% ширину для кнопок */
         }
 
         /*NavBar*/
@@ -113,28 +123,34 @@
 
 <body>
 <div class="form-container">
-    <h2>All users:</h2>
+    <h2>All cocktails:</h2>
     <form>
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Role</th>
+                <th>ID:</th>
+                <th>Name:</th>
+                <th>Description:</th>
+                <th>Status:</th>
+                <th>Recipe:</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="user" items="${users}">
+            <c:forEach var="cocktail" items="${cocktails}">
                 <tr>
-                    <td>${user.id}</td>
-                    <td>${user.username}</td>
-                    <td>${user.role.roleName}</td>
+                    <td>${cocktail.id}</td>
+                    <td>${cocktail.name}</td>
+                    <td>${cocktail.description}</td>
+                    <td>${cocktail.status.status}</td>
+                    <td>
+                        <a href="/recipe/get?id=${cocktail.id}" class="btn btn-group w-100 mt-2">Get</a>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
 
-        <!-- Горизонтальная пагинация -->
+        <!-- Pagination -->
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item">
@@ -154,13 +170,9 @@
                 </li>
             </ul>
         </nav>
-
         <div class="text-center">
             <div class="col-12 btn-group">
-                <a href="/registration" class="btn btn-group w-100 mt-2">Create user</a>
-                <a href="/admin/user/get" class="btn btn-group w-100 mt-2">Get user</a>
-                <a href="/admin/user/update" class="btn btn-group w-100 mt-2">Update user</a>
-                <a href="/admin/user/delete" class="btn btn-group w-100 mt-2">Delete user</a>
+                <a href="/main" class="btn btn-group w-100 mt-2">Back to main page</a>
             </div>
         </div>
     </form>

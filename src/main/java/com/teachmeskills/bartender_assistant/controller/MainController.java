@@ -29,7 +29,7 @@ public class MainController {
     }
 
     @GetMapping("/cocktails")
-    public ModelAndView showCommentPage(@RequestParam(defaultValue = "0") int page, Model model) {
+    public ModelAndView showCocktailsPage(@RequestParam(defaultValue = "0") int page, Model model) {
         Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE);
         Page<Cocktail> pageComments = cocktailService.getAllCocktails(paging);
         List<Cocktail> cocktails = pageComments.getContent();
