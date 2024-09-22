@@ -64,7 +64,7 @@
     <div class="form-container">
         <p>${message}</p>
         <div class="d-flex justify-content-between mt-4">
-            <a href="/cocktail/create" class="btn btn-secondary w-100 btn-back">Back</a>
+            <a href="/main/cocktails" class="btn btn-secondary w-100 btn-back">Back to cocktails</a>
         </div>
     </div>
 </div>

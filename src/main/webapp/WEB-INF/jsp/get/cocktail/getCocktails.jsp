@@ -170,8 +170,10 @@
 
         <div class="text-center">
             <div class="col-12 btn-group">
+                <sec:authorize access="isAuthenticated()">
+                    <a href="/cocktail/create" class="btn btn-group w-100 mt-2">Create cocktail for review</a>
+                </sec:authorize>
                 <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <a href="/cocktail/create" class="btn btn-group w-100 mt-2">Create cocktail</a>
                     <a href="/cocktail/get" class="btn btn-group w-100 mt-2">Get cocktail</a>
                     <a href="/cocktail/update" class="btn btn-group w-100 mt-2">Update cocktail</a>
                     <a href="/cocktail/delete" class="btn btn-group w-100 mt-2">Delete cocktail</a>

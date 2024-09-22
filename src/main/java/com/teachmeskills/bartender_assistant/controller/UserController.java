@@ -38,12 +38,12 @@ public class UserController {
         return new ModelAndView("update/user/updateUserForm", "user", new User());
     }
 
-
     @PostMapping("/admin/user/update")
-    public ModelAndView createUser(@ModelAttribute User user, Model model) {
+    public ModelAndView updateUser(@ModelAttribute User user, Model model) {
         if (userService.isUserExist(user.getId())) {
             userService.updateUser(user);
-            String message = String.format("User with '%s' ID and '%s' username has been updated.", user.getId(), user.getUsername());
+            String message = String.format("User with '%s' ID and '%s' username has been updated.", user.getId(),
+                                           user.getUsername());
             model.addAttribute("message", message);
             return new ModelAndView("update/user/updatedUserPage");
         }
@@ -56,11 +56,30 @@ public class UserController {
         if (id != null && userService.isUserExist(id)) {
             UserDTO userDto = userService.getUserDto(id);
             userService.deleteUser(id);
-            String message = String.format("User with '%s' ID and '%s' username has been deleted.", userDto.getId(), userDto.getUsername());
+            String message = String.format("User with '%s' ID and '%s' username has been deleted.", userDto.getId(),
+                                           userDto.getUsername());
             model.addAttribute("message", message);
             return new ModelAndView("delete/user/deletedUserPage");
         }
         model.addAttribute("message", "Please, fill in valid data.");
         return new ModelAndView("delete/user/deleteUserForm");
+    }
+
+    @GetMapping("/user/profile")
+    public ModelAndView getUserProfile(Model model) {
+        User user = userService.getProfileInfo(model);
+        return new ModelAndView("get/user/getUserProfile", "user", user);
+    }
+
+    @GetMapping(value = "/user/profile/update")
+    public ModelAndView updateUserProfile(Model model) {
+        User user = userService.getProfileInfo(model);
+        return new ModelAndView("update/user/updateUserProfileForm", "existingUser", user);
+    }
+
+    @PostMapping(value = "/user/profile/update")
+    public ModelAndView updateUserProfile(@ModelAttribute User user) {
+        User updatedUser = userService.updateUser(user);
+        return new ModelAndView("update/user/updatedUserPage", "updatedUser", updatedUser);
     }
 }

@@ -159,7 +159,7 @@
             <div class="col-12 btn-group">
                 <a href="/registration" class="btn btn-group w-100 mt-2">Create user</a>
                 <a href="/admin/user/get" class="btn btn-group w-100 mt-2">Get user</a>
-                <a href="/admin/user/update" class="btn btn-group w-100 mt-2">Update user</a>
+                <a href="/user/update" class="btn btn-group w-100 mt-2">Update user</a>
                 <a href="/admin/user/delete" class="btn btn-group w-100 mt-2">Delete user</a>
             </div>
         </div>

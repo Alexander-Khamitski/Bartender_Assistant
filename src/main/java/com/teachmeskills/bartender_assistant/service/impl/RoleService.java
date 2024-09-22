@@ -8,5 +8,7 @@ public interface RoleService {
 
     Role getDefaultRole();
 
+    Role getRoleById(int id);
+
     List<Role> getAllRoles();
 }

@@ -83,20 +83,21 @@
 <div class="container">
     <h2 class="mt-5">Update user:</h2>
     <div class="form-container">
-        <form:form action="${pageContext.request.contextPath}/user/update" method="post" modelAttribute="user">
+        <form:form action="${pageContext.request.contextPath}/user/profile/update" method="post" modelAttribute="existingUser">
             <div class="form-group mb-3">
-                <label for="username">ID:</label>
-                <form:input type="number" path="id" class="form-control" id="id"/>
+                <label>ID:</label>
+                <form:input type="number" path="id" class="form-control" id="id" value="${existingUser.id}"
+                            readonly="true"/>
                 <form:errors path="id" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="username">Username:</label>
-                <form:input type="text" path="username" class="form-control" id="username"/>
+                <form:input type="text" path="username" class="form-control" id="username" value="${existingUser.username}"/>
                 <form:errors path="username" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="login">Login:</label>
-                <form:input type="text" path="login" class="form-control" id="login"/>
+                <form:input type="text" path="login" class="form-control" id="login" value="${existingUser.login}"/>
                 <form:errors path="login" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3 password-container">
@@ -107,17 +108,17 @@
             </div>
             <div class="form-group mb-3">
                 <label for="role">Role:</label>
-                <form:select path="role" class="form-control" id="role">
-                    <form:option value="" label="-- Select Role --"/>
-                    <form:options items="${roles}" itemValue="id" itemLabel="roleName"/>
-                </form:select>
+                <form:input type="text" path="role.roleName" class="form-control" id="role" value="${existingUser.role.roleName}" readonly="true"/>
+                <form:hidden path="role.id" value="${existingUser.role.id}"/>
                 <form:errors path="role" cssClass="text-danger"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Update user</button>
-            <a href="/admin/users" class="btn btn-secondary w-100 mt-2">Back to users</a>
+            <br>
+            <a href="/user/profile" class="btn btn-secondary w-100 mt-2">Back to profile</a>
         </form:form>
     </div>
 </div>
+
 <script>
     function togglePassword() {
         const passwordField = document.getElementById('password');

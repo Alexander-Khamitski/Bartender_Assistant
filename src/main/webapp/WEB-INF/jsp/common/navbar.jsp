@@ -17,19 +17,19 @@
                 <a class="nav-link" href="/main/cocktails">Cocktails</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/recipes">Recipes</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/reviews">Reviews</a>
             </li>
+            <sec:authorize access="hasRole('admin') or hasRole('bartender')">
+                <li class="nav-item">
+                    <a class="nav-link" href="/recipes">Recipes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ingredients">Ingredients</a>
+                </li>
+            </sec:authorize>
             <sec:authorize access="hasRole('admin')">
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/users">Users</a>
-                </li>
-            </sec:authorize>
-            <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/ingredients">Ingredients</a>
                 </li>
             </sec:authorize>
         </ul>
@@ -40,6 +40,7 @@
                 <a class="btn btn-lg" href="/registration">Join Now</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
+                <a class="btn btn-lg me-2" href="/user/profile">My profile</a>
                 <a class="btn btn-lg" href="/logout">Log Out</a>
             </sec:authorize>
         </div>

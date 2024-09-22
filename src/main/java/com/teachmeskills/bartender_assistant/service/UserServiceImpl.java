@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 @Service
 @RequiredArgsConstructor
@@ -81,5 +82,11 @@ public class UserServiceImpl implements UserService {
     public Page<UserDTO> getAllUsers(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
         return users.map(user -> userMapper.toDTO(user));
+    }
+
+    public User getProfileInfo(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String login = authentication.getName();
+        return userRepository.findByLogin(login);
     }
 }

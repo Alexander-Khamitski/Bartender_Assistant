@@ -26,8 +26,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("admin")
-                        .requestMatchers("/bartender/**", "/cocktail/**", "/ingredients", "/ingredient/**").hasAnyRole("admin", "bartender")
-                        .requestMatchers("/user/**", "/user/get").hasRole("user")
+                        .requestMatchers("/bartender/**", "/cocktail/get", "/cocktail/update", "/cocktail/delete", "/ingredients", "/ingredient/**").hasAnyRole("admin", "bartender")
+                        .requestMatchers("/user/profile", "/user/profile/update", "/cocktail/create").hasAnyRole("admin", "bartender", "user")
                         .requestMatchers("/main/**", "/signin", "/registration", "/login", "/logout").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll())
                 .formLogin(formLogin -> formLogin
