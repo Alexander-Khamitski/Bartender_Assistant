@@ -57,6 +57,7 @@ public class CocktailIngredientsController {
     public ModelAndView updateCocktailIngredientForm(@RequestParam(value = "id") Integer id, Model model) {
         CocktailIngredient cocktailIngredient = cocktailIngredientsService.getCocktailIngredient(id);
         model.addAttribute("cocktailIngredient", cocktailIngredient);
+        model.addAttribute("cocktail", cocktailIngredient.getCocktail());
         return new ModelAndView("update/recipe/updateCocktailIngredientForm");
     }
 

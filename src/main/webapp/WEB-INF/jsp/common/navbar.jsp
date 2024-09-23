@@ -17,7 +17,7 @@
                 <a class="nav-link" href="/main/cocktails">Cocktails</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/reviews">Reviews</a>
+                <a class="nav-link" href="/ratings">Ratings</a>
             </li>
             <sec:authorize access="hasRole('admin') or hasRole('bartender')">
                 <li class="nav-item">

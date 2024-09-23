@@ -1,5 +1,7 @@
 package com.teachmeskills.bartender_assistant.service.impl;
 
+import java.util.List;
+
 import com.teachmeskills.bartender_assistant.dto.UserCreateDTO;
 import com.teachmeskills.bartender_assistant.dto.UserDTO;
 import com.teachmeskills.bartender_assistant.entity.User;
@@ -24,4 +26,8 @@ public interface UserService {
     Page<UserDTO> getAllUsers(Pageable pageable);
 
     User getProfileInfo(Model model);
+
+    List<User> getUsersByRoleId(int roleId);
+
+    List<User> findByRoleId(int roleId);
 }

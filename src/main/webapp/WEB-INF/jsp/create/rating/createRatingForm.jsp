@@ -81,58 +81,35 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="mt-5">Update user:</h2>
+    <h2 class="mt-5">Leave cocktail review:</h2>
     <div class="form-container">
-        <form:form action="${pageContext.request.contextPath}/admin/user/update" method="post" modelAttribute="user">
+        <form:form action="${pageContext.request.contextPath}/cocktail/rating/create" method="post" modelAttribute="cocktailRating">
             <div class="form-group mb-3">
-                <label for="username">ID:</label>
-                <form:input type="number" path="id" class="form-control" id="id"/>
-                <form:errors path="id" cssClass="text-danger"/>
+                <label for="user">User:</label>
+                <form:input type="text" path="user.username" class="form-control" id="user" value="${user.username}" readonly="true"/>
+                <form:hidden path="user.id" value="${user.id}"/>
+                <form:errors path="user" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
-                <label for="username">Username:</label>
-                <form:input type="text" path="username" class="form-control" id="username"/>
-                <form:errors path="username" cssClass="text-danger"/>
-            </div>
-            <div class="form-group mb-3">
-                <label for="login">Login:</label>
-                <form:input type="text" path="login" class="form-control" id="login"/>
-                <form:errors path="login" cssClass="text-danger"/>
-            </div>
-            <div class="form-group mb-3 password-container">
-                <label for="password">Password:</label>
-                <form:password path="password" class="form-control" id="password"/>
-                <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
-                <form:errors path="password" cssClass="text-danger"/>
-            </div>
-            <div class="form-group mb-3">
-                <label for="role">Role:</label>
-                <form:select path="role" class="form-control" id="role">
-                    <form:option value="" label="-- Select Role --"/>
-                    <form:options items="${roles}" itemValue="id" itemLabel="roleName"/>
+                <label for="cocktail">Cocktail:</label>
+                <form:select path="cocktail" class="form-control" id="cocktail">
+                    <form:option value="" label="-- Select Cocktail --"/>
+                    <form:options items="${cocktails}" itemValue="id" itemLabel="name"/>
                 </form:select>
-                <form:errors path="role" cssClass="text-danger"/>
+                <form:errors path="cocktail" cssClass="text-danger"/>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Update user</button>
-            <a href="/admin/users" class="btn btn-secondary w-100 mt-2">Back to users</a>
+            <div class="form-group mb-3">
+                <label for="rating">Rating:</label>
+                <form:select path="rating" class="form-control" id="rating">
+                    <form:option value="" label="-- Select rating --"/>
+                    <form:options items="${ratings}"/>
+                </form:select>
+                <form:errors path="rating" cssClass="text-danger"/>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Leave cocktail review</button>
+            <a href="/ratings" class="btn btn-secondary w-100 mt-2">Back to cocktail ratings</a>
         </form:form>
     </div>
 </div>
-<script>
-    function togglePassword() {
-        const passwordField = document.getElementById('password');
-        const eyeIcon = document.querySelector('.toggle-password');
-
-        if (passwordField.type === 'password') {
-            passwordField.type = 'text';
-            eyeIcon.classList.remove('fa-eye');
-            eyeIcon.classList.add('fa-eye-slash');
-        } else {
-            passwordField.type = 'password';
-            eyeIcon.classList.remove('fa-eye-slash');
-            eyeIcon.classList.add('fa-eye');
-        }
-    }
-</script>
 </body>
 </html>

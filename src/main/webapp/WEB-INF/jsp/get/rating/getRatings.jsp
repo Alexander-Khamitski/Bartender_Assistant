@@ -1,7 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +79,6 @@
         .btn {
             background-color: #ffc107;
             color: black;
-            border: none; /* Убираем границу у кнопок */
         }
 
         .btn:hover {
@@ -95,7 +93,6 @@
 
         .btn-group .btn {
             margin: 0 5px; /* Добавляет немного пространства между кнопками */
-            width: auto; /* Убирает 100% ширину для кнопок */
         }
 
         /*NavBar*/
@@ -117,33 +114,32 @@
 
 <body>
 <div class="form-container">
-    <h2>All cocktails:</h2>
+    <h2>All ratings:</h2>
     <form>
         <table class="table table-hover">
             <thead>
             <tr>
+                <th>Username:</th>
+                <th>Cocktail:</th>
+                <th>Rating:</th>
                 <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <th>ID:</th>
-                </sec:authorize>
-                <th>Name:</th>
-                <th>Description:</th>
-                <th>Average rating:</th>
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <th>Status:</th>
+                    <th>Actions:</th>
                 </sec:authorize>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="cocktail" items="${cocktails}">
+            <c:forEach var="cocktailRating" items="${cocktailRatings}">
                 <tr>
+                    <td>${cocktailRating.user.username}</td>
+                    <td>${cocktailRating.cocktail.name}</td>
+                    <td>${cocktailRating.rating}</td>
                     <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                        <td>${cocktail.id}</td>
-                    </sec:authorize>
-                    <td>${cocktail.name}</td>
-                    <td>${cocktail.description}</td>
-                    <td><fmt:formatNumber value="${averageRatings[cocktail.id]}" maxFractionDigits="2" /></td>
-                    <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                        <td>${cocktail.status.status}</td>
+                        <td>
+                            <form action="/cocktail/rating/delete?id=${cocktailRating.id}" method="POST"
+                                  style="display:inline;">
+                                <button type="submit" class="btn btn-group w-100 mt-2">Delete</button>
+                            </form>
+                        </td>
                     </sec:authorize>
                 </tr>
             </c:forEach>
@@ -170,17 +166,10 @@
                 </li>
             </ul>
         </nav>
-
         <div class="text-center">
             <div class="col-12 btn-group">
-                <sec:authorize access="isAuthenticated()">
-                    <a href="/cocktail/create" class="btn btn-group w-100 mt-2">Create cocktail for review</a>
-                </sec:authorize>
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <a href="/cocktail/get" class="btn btn-group w-100 mt-2">Get cocktail</a>
-                    <a href="/cocktail/update" class="btn btn-group w-100 mt-2">Update cocktail</a>
-                    <a href="/cocktail/delete" class="btn btn-group w-100 mt-2">Delete cocktail</a>
-                </sec:authorize>
+                <a href="/cocktail/rating/create" class="btn btn-group w-100 mt-2">Add rating</a>
+                <a href="/main" class="btn btn-group w-100 mt-2">Back to main page</a>
             </div>
         </div>
     </form>

@@ -1,5 +1,7 @@
 package com.teachmeskills.bartender_assistant.service;
 
+import java.util.List;
+
 import com.teachmeskills.bartender_assistant.dto.UserCreateDTO;
 import com.teachmeskills.bartender_assistant.dto.UserDTO;
 import com.teachmeskills.bartender_assistant.entity.Role;
@@ -88,5 +90,14 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String login = authentication.getName();
         return userRepository.findByLogin(login);
+    }
+
+    @Override
+    public List<User> getUsersByRoleId(int roleId) {
+        return userRepository.findByRoleId(roleId);
+    }
+
+    public List<User> findByRoleId(int roleId) {
+        return userRepository.findByRoleId(roleId);
     }
 }

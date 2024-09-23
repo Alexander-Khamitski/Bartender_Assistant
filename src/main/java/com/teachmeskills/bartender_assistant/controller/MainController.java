@@ -1,9 +1,12 @@
 package com.teachmeskills.bartender_assistant.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import com.teachmeskills.bartender_assistant.consts.PaginationConsts;
 import com.teachmeskills.bartender_assistant.entity.Cocktail;
+import com.teachmeskills.bartender_assistant.entity.CocktailRating;
+import com.teachmeskills.bartender_assistant.service.CocktailRatingServiceImpl;
 import com.teachmeskills.bartender_assistant.service.CocktailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +25,8 @@ public class MainController {
 
     @Autowired
     private CocktailServiceImpl cocktailService;
+    @Autowired
+    private CocktailRatingServiceImpl cocktailRatingService;
 
     @GetMapping
     public ModelAndView showHomeForm() {
@@ -32,11 +37,15 @@ public class MainController {
     public ModelAndView showCocktailsPage(@RequestParam(defaultValue = "0") int page, Model model) {
         Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE);
         Page<Cocktail> pageComments = cocktailService.getAllCocktails(paging);
-        List<Cocktail> cocktails = pageComments.getContent();
-        model.addAttribute("cocktails", cocktails);
         model.addAttribute("currentPage", pageComments.getNumber());
         model.addAttribute("totalPages", pageComments.getTotalPages());
         model.addAttribute("totalItems", pageComments.getTotalElements());
+        List<Cocktail> cocktails = pageComments.getContent();
+        model.addAttribute("cocktails", cocktails);
+        List<CocktailRating> cocktailRatings = cocktailRatingService.getAllCocktailRatings();
+        model.addAttribute("cocktailRatings", cocktailRatings);
+        Map<Integer, Double> averageRatings = cocktailRatingService.getAverageRatings();
+        model.addAttribute("averageRatings", averageRatings);
         return new ModelAndView("get/cocktail/getCocktails");
     }
 }
