@@ -63,7 +63,7 @@
     <p><strong>ID:</strong> ${userDto.id}</p>
     <p><strong>Username:</strong> ${userDto.username}</p>
     <p><strong>Role:</strong> ${userDto.role.roleName}</p>
-    <a href="/admin/user/get" class="btn btn-secondary w-100 btn-back">Back</a>
+    <a href="/admin/users" class="btn btn-secondary w-100 btn-back">Back to users</a>
 </div>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class CocktailIngredientsController {
 
     @GetMapping("/recipes")
     public ModelAndView showRecipesPage(@RequestParam(defaultValue = "0") int page, Model model) {
-        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_TEN);
+        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_SEVEN);
         Page<Cocktail> pageComments = cocktailService.getAllCocktails(paging);
         List<Cocktail> cocktails = pageComments.getContent();
         model.addAttribute("cocktails", cocktails);

@@ -85,18 +85,18 @@
     <div class="form-container">
         <form:form action="${pageContext.request.contextPath}/admin/user/update" method="post" modelAttribute="user">
             <div class="form-group mb-3">
-                <label for="username">ID:</label>
-                <form:input type="number" path="id" class="form-control" id="id"/>
+                <label for="id">ID:</label>
+                <form:input type="number" path="id" class="form-control" id="id" value="${user.id}" readonly="${user.id != 0}"/>
                 <form:errors path="id" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="username">Username:</label>
-                <form:input type="text" path="username" class="form-control" id="username"/>
+                <form:input type="text" path="username" class="form-control" id="username" value="${user.username}"/>
                 <form:errors path="username" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="login">Login:</label>
-                <form:input type="text" path="login" class="form-control" id="login"/>
+                <form:input type="text" path="login" class="form-control" id="login" value="${user.login}"/>
                 <form:errors path="login" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3 password-container">

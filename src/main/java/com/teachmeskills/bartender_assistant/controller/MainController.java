@@ -35,7 +35,7 @@ public class MainController {
 
     @GetMapping("/cocktails")
     public ModelAndView showCocktailsPage(@RequestParam(defaultValue = "0") int page, Model model) {
-        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_TEN);
+        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_SEVEN);
         Page<Cocktail> pageComments = cocktailService.getAllCocktails(paging);
         model.addAttribute("currentPage", pageComments.getNumber());
         model.addAttribute("totalPages", pageComments.getTotalPages());

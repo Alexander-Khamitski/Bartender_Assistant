@@ -33,8 +33,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/admin/user/update")
-    public ModelAndView updateUser(Model model) {
+    public ModelAndView updateUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
         model.addAttribute("roles", roleService.getAllRoles());
+        if (id != null && userService.isUserExist(id)) {
+            User user = userService.getUser(id);
+            return new ModelAndView("update/user/updateUserForm", "user", user);
+        }
         return new ModelAndView("update/user/updateUserForm", "user", new User());
     }
 

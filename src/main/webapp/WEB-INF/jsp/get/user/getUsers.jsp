@@ -121,6 +121,7 @@
                 <th>ID</th>
                 <th>Username</th>
                 <th>Role</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -129,6 +130,16 @@
                     <td>${user.id}</td>
                     <td>${user.username}</td>
                     <td>${user.role.roleName}</td>
+                    <td>
+                        <a href="/admin/user/get?id=${user.id}" class="btn btn-block">Get</a>
+                        <c:if test="${user.role.roleName != 'ROLE_admin'}">
+                            <a href="/admin/user/update?id=${user.id}" class="btn btn-block">Edit</a>
+                            <form action="/admin/user/delete" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="${user.id}"/>
+                                <button type="submit" class="btn btn-block">Delete</button>
+                            </form>
+                        </c:if>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

@@ -25,7 +25,7 @@ public class AdminController {
 
     @GetMapping("/users")
     public ModelAndView showCommentPage(@RequestParam(defaultValue = "0") int page, Model model) {
-        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_TEN);
+        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_SEVEN);
         Page<UserDTO> pageComments = userService.getAllUsers(paging);
         List<UserDTO> users = pageComments.getContent();
         model.addAttribute("users", users);
