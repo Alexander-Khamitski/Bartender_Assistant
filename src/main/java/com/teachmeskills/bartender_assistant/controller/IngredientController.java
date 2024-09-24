@@ -1,6 +1,11 @@
 package com.teachmeskills.bartender_assistant.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.teachmeskills.bartender_assistant.entity.CocktailIngredient;
 import com.teachmeskills.bartender_assistant.entity.Ingredient;
+import com.teachmeskills.bartender_assistant.service.CocktailIngredientsServiceImpl;
 import com.teachmeskills.bartender_assistant.service.IngredientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +23,8 @@ public class IngredientController {
 
     @Autowired
     private IngredientServiceImpl ingredientService;
+    @Autowired
+    private CocktailIngredientsServiceImpl cocktailIngredientsService;
 
     @GetMapping(value = "/create")
     public ModelAndView fillCreateIngredientForm() {
@@ -48,7 +55,12 @@ public class IngredientController {
     }
 
     @GetMapping(value = "/update")
-    public ModelAndView fillUpdateIngredientForm() {
+    public ModelAndView fillUpdateIngredientForm(@RequestParam(value = "id", required = false) Integer id, Model model) {
+        if (id != null) {
+            Ingredient ingredient = ingredientService.getIngredient(id);
+            model.addAttribute("ingredient", ingredient);
+            return new ModelAndView("update/ingredient/updateIngredientForm", "ingredient", ingredient);
+        }
         return new ModelAndView("update/ingredient/updateIngredientForm", "ingredient", new Ingredient());
     }
 
@@ -65,12 +77,26 @@ public class IngredientController {
     }
 
     @GetMapping(value = "/delete")
-    public ModelAndView fillDeleteIngredientForm() {
+    public ModelAndView fillDeleteIngredientForm(@RequestParam(value = "id", required = false) Integer id) {
+        if (id != null) {
+
+        }
         return new ModelAndView("delete/ingredient/deleteIngredientForm", "ingredient", new Ingredient());
     }
 
     @PostMapping(value = "/delete")
     public ModelAndView deleteIngredient(@RequestParam(value = "id", required = false) Integer id, Model model) {
+        List<CocktailIngredient> cocktailIngredientList = cocktailIngredientsService.getAllCocktailIngredientsByIngredientId(id);
+        if (!cocktailIngredientList.isEmpty()) {
+            Ingredient ingredient = ingredientService.getIngredient(id);
+            String cocktailNames = cocktailIngredientList.stream()
+                                                         .map(cocktailIngredient -> cocktailIngredient.getCocktail().getName())
+                                                         .distinct()
+                                                         .collect(Collectors.joining(", "));
+            String message = String.format("Ingredient '%s' is included to next cocktails: '%s'! Deleting is forbidden.", ingredient.getName(), cocktailNames);
+            model.addAttribute("message", message);
+            return new ModelAndView("delete/ingredient/deletedIngredient", "ingredient", new Ingredient());
+        }
         if (ingredientService.isIngredientExist(id)) {
             ingredientService.deleteIngredient(id);
             String message = String.format("Ingredient with '%s' id has been deleted successfully!", id);

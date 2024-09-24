@@ -61,12 +61,12 @@
         <form:form action="${pageContext.request.contextPath}/ingredient/update" method="post" modelAttribute="ingredient">
             <div class="form-group mb-3">
                 <label for="id">ID:</label>
-                <form:input type="text" path="id" class="form-control" id="id"/>
+                <form:input type="text" path="id" class="form-control" id="id" value="${ingredient.id}" readonly="true"/>
                 <form:errors path="id" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="name">Name:</label>
-                <form:input type="text" path="name" class="form-control" id="name"/>
+                <form:input type="text" path="name" class="form-control" id="name" value="${ingredient.name}"/>
                 <form:errors path="name" cssClass="text-danger"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Update ingredient</button>

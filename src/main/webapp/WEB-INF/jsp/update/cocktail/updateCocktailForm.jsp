@@ -61,12 +61,12 @@
         <form:form action="${pageContext.request.contextPath}/cocktail/update" method="post" modelAttribute="cocktail">
             <div class="form-group mb-3">
                 <label for="id">ID:</label>
-                <form:input type="number" path="id" class="form-control" id="id"/>
+                <form:input type="number" path="id" class="form-control" id="id" value="${cocktail.id}"/>
                 <form:errors path="id" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="name">Name:</label>
-                <form:input type="text" path="name" class="form-control" id="name"/>
+                <form:input type="text" path="name" class="form-control" id="name" value="${cocktail.name}"/>
                 <form:errors path="name" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">

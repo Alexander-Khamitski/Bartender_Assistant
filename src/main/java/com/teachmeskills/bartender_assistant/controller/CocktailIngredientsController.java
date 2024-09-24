@@ -34,7 +34,7 @@ public class CocktailIngredientsController {
 
     @GetMapping("/recipes")
     public ModelAndView showRecipesPage(@RequestParam(defaultValue = "0") int page, Model model) {
-        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE);
+        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_TEN);
         Page<Cocktail> pageComments = cocktailService.getAllCocktails(paging);
         List<Cocktail> cocktails = pageComments.getContent();
         model.addAttribute("cocktails", cocktails);
@@ -56,8 +56,7 @@ public class CocktailIngredientsController {
     @GetMapping("/cocktail/ingredient/update")
     public ModelAndView updateCocktailIngredientForm(@RequestParam(value = "id") Integer id, Model model) {
         CocktailIngredient cocktailIngredient = cocktailIngredientsService.getCocktailIngredient(id);
-        model.addAttribute("cocktailIngredient", cocktailIngredient);
-        model.addAttribute("cocktail", cocktailIngredient.getCocktail());
+        model.addAttribute("cocktailIngredient", cocktailIngredient);;
         return new ModelAndView("update/recipe/updateCocktailIngredientForm");
     }
 

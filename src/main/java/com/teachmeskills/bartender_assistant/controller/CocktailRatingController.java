@@ -41,7 +41,7 @@ public class CocktailRatingController {
 
     @GetMapping("/ratings")
     public ModelAndView showRatingsPage(@RequestParam(defaultValue = "0") int page, Model model) {
-        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE);
+        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_TEN);
         Page<CocktailRating> pageComments = cocktailRatingService.getAllCocktailRatings(paging);
         List<CocktailRating> cocktailRatings = pageComments.getContent();
         model.addAttribute("cocktailRatings", cocktailRatings);

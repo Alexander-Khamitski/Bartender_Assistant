@@ -19,8 +19,6 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "cocktails")
-@Getter
-@Setter
 @EqualsAndHashCode
 @ToString
 public class Cocktail {
@@ -28,21 +26,33 @@ public class Cocktail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @Getter
+    @Setter
     private int id;
 
     @Column(name = "name")
+    @Getter
+    @Setter
     private String name;
 
     @Column(name = "description")
+    @Getter
+    @Setter
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
+    @Getter
+    @Setter
     private CocktailStatus status;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
     private List<CocktailIngredient> cocktailIngredients;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
     private List<CocktailRating> cocktailRatings;
 }

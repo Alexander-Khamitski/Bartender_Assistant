@@ -47,14 +47,9 @@
             background-color: #333;
         }
 
-        /*td.td-block {*/
-        /*    justify-content: center;*/
-        /*    padding: 0; !* Убираем внутренние отступы *!*/
-        /*    color: white; !* Цвет текста *!*/
-        /*    background-color: white; !* Белый фон для ячейки *!*/
-        /*    display: inline;*/
-        /*    justify-content: center;*/
-        /*}*/
+        .table th:nth-child(3), .table td:nth-child(3) {
+            width: 500px; /* Ширина для кнопок действий */
+        }
 
         /*Pagination*/
         .pagination {
@@ -123,7 +118,7 @@
 
 <body>
 <div class="form-container">
-    <h2>All cocktails:</h2>
+    <h2>All cocktails with recipes:</h2>
     <form>
         <table class="table table-hover">
             <thead>

@@ -15,4 +15,6 @@ public interface CocktailIngredientsService {
     void updateCocktailIngredient(CocktailIngredient cocktailIngredient);
 
     void deleteCocktailIngredient(CocktailIngredient cocktailIngredient);
+
+    List<CocktailIngredient> getAllCocktailIngredientsByIngredientId(int ingredientId);
 }

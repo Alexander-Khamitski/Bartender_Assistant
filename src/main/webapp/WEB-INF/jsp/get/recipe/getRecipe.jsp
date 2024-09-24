@@ -33,6 +33,10 @@
             background-color: #1b1b1b; /* Фоновый цвет формы */
         }
 
+        .table th:nth-child(5), .table td:nth-child(5) {
+            width: 200px; /* Ширина для кнопок действий */
+        }
+
         /*Table*/
         .table {
             color: #f8f9fa;
@@ -108,9 +112,9 @@
                     <td>${cocktailIngredient.amount}</td>
                     <td>${cocktailIngredient.unit}</td>
                     <td>
-                        <a href="/cocktail/ingredient/update?id=${cocktailIngredient.id}" class="btn btn-group w-100 mt-2">Edit</a>
+                        <a href="/cocktail/ingredient/update?id=${cocktailIngredient.id}" class="btn btn-block">Edit</a>
                         <form action="/cocktail/ingredient/delete?id=${cocktailIngredient.id}" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-group w-100 mt-2">Delete</button>
+                            <button type="submit" class="btn btn-block">Delete</button>
                         </form>
                     </td>
                 </tr>

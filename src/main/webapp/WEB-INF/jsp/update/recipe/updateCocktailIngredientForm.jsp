@@ -95,6 +95,7 @@
                 <form:hidden path="cocktail.id" value="${cocktailIngredient.cocktail.id}"/>
                 <form:errors path="cocktail" cssClass="text-danger"/>
             </div>
+
             <div class="form-group mb-3">
                 <label for="ingredient">Ingredient:</label>
                 <form:input type="text" path="ingredient.name" class="form-control" id="ingredient" value="${cocktailIngredient.ingredient.name}" readonly="true"/>
@@ -113,7 +114,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Update cocktail ingredient</button>
             <br>
-            <a href="/recipe/get?id=${cocktail.id}" class="btn btn-secondary w-100 mt-2">Back to cocktail recipe</a>
+            <a href="/recipe/get?id=${cocktailIngredient.cocktail.id}" class="btn btn-secondary w-100 mt-2">Back to cocktail recipe</a>
         </form:form>
     </div>
 </div>

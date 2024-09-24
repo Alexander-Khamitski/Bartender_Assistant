@@ -52,15 +52,25 @@ public class CocktailController {
     }
 
     @GetMapping(value = "/update")
-    public ModelAndView fillUpdateCocktailForm(Model model) {
+    public ModelAndView fillUpdateCocktailForm(@RequestParam(value = "id", required = false) Integer id, Model model) {
         model.addAttribute("statuses", cocktailStatusService.getAllStatuses());
+        if (id != null) {
+            Cocktail cocktail = cocktailService.getCocktail(id);
+            model.addAttribute("cocktail", cocktail);
+            return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", cocktail);
+        }
         return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", new Cocktail());
     }
 
     @PostMapping(value = "/update")
     public ModelAndView updateCocktail(@ModelAttribute Cocktail cocktail, Model model) {
-        if (cocktailService.isCocktailExist(cocktail.getId())) {
-            cocktailService.updateCocktail(cocktail);
+        int cocktailId = cocktail.getId();
+        if (cocktailService.isCocktailExist(cocktailId)) {
+            Cocktail existingCocktail = cocktailService.getCocktail(cocktailId);
+            existingCocktail.setName(cocktail.getName());
+            existingCocktail.setDescription(cocktail.getDescription());
+            existingCocktail.setStatus(cocktail.getStatus());
+            cocktailService.updateCocktail(existingCocktail);
             String message = String.format("Cocktail '%s' has been updated successfully!", cocktail.getName());
             model.addAttribute("message", message);
             return new ModelAndView("update/cocktail/updatedCocktail", "cocktail", new Cocktail());

@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CocktailIngredientsRepository extends JpaRepository<CocktailIngredient, Integer> {
 
     List<CocktailIngredient> findByCocktailId(int cocktailId);
+
+    List<CocktailIngredient> findByIngredientId(int ingredientId);
 }

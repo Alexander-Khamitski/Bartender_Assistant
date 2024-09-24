@@ -41,6 +41,11 @@
             background-color: #1b1b1b; /* Form background */
         }
 
+        .break-word p {
+            word-wrap: break-word; /* Переносит длинные слова на новую строку */
+            overflow-wrap: break-word; /* Также обеспечивает перенос текста */
+        }
+
         /*NavBar*/
         .navbar {
             background-color: #1b1b1b;
@@ -61,9 +66,9 @@
 <div class="form-container">
     <h2>Cocktail info:</h2>
     <p><strong>Name:</strong> ${cocktail.name}</p>
-    <p><strong>Description:</strong> ${cocktail.description}</p>
+    <p class="break-word"><strong>Description:</strong> ${cocktail.description}</p>
     <p><strong>Status:</strong> ${cocktail.status.status}</p>
-    <a href="/cocktail/get" class="btn btn-secondary w-100 btn-back">Back</a>
+    <a href="/main/cocktails" class="btn btn-secondary w-100 btn-back">Back to cocktails</a>
 </div>
 </body>
 </html>

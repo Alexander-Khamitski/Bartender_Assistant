@@ -54,4 +54,9 @@ public class CocktailRatingServiceImpl implements CocktailRatingService {
     public void deleteCocktailRating(int id) {
         cocktailRatingRepository.deleteById(id);
     }
+
+    @Override
+    public List<CocktailRating> getAllCocktailRatingsByCocktailId(int id) {
+        return cocktailRatingRepository.findByCocktailId(id);
+    }
 }

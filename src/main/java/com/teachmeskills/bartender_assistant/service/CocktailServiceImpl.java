@@ -19,6 +19,10 @@ public class CocktailServiceImpl implements CocktailService {
     private CocktailRepository cocktailRepository;
     @Autowired
     private CocktailStatusServiceImpl cocktailStatusService;
+    @Autowired
+    private CocktailIngredientsServiceImpl cocktailIngredientsService;
+    @Autowired
+    private CocktailRatingServiceImpl cocktailRatingService;
 
     @Override
     public void createCocktail(Cocktail cocktail) {
@@ -29,7 +33,7 @@ public class CocktailServiceImpl implements CocktailService {
     @Override
     public Cocktail getCocktail(int id) {
         return cocktailRepository.findById(id)
-                                 .orElseThrow(() -> new IllegalArgumentException("Unexpected cocktail id!"));
+                                 .orElseThrow(() -> new IllegalArgumentException("Unexpected cocktail id: " + id));
     }
 
     @Override

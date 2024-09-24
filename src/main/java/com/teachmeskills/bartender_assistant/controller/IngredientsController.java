@@ -23,7 +23,7 @@ public class IngredientsController {
 
     @GetMapping("/ingredients")
     public ModelAndView showCommentPage(@RequestParam(defaultValue = "0") int page, Model model) {
-        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE);
+        Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_TEN);
         Page<Ingredient> pageComments = ingredientService.getAllIngredients(paging);
         List<Ingredient> ingredients = pageComments.getContent();
         model.addAttribute("ingredients", ingredients);

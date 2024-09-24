@@ -20,4 +20,6 @@ public interface CocktailRatingService {
     CocktailRating getCocktailRatingById(int id);
 
     void deleteCocktailRating(int id);
+
+    List<CocktailRating> getAllCocktailRatingsByCocktailId(int id);
 }

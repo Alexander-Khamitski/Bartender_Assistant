@@ -94,7 +94,10 @@
 
         .btn-group .btn {
             margin: 0 5px; /* Добавляет немного пространства между кнопками */
-            width: auto; /* Убирает 100% ширину для кнопок */
+        }
+
+        .table th:nth-child(3), .table td:nth-child(3) {
+            width: 200px; /* Ширина для кнопок действий */
         }
 
         /*NavBar*/
@@ -123,6 +126,7 @@
             <tr>
                 <th>ID:</th>
                 <th>Name:</th>
+                <th>Actions:</th>
             </tr>
             </thead>
             <tbody>
@@ -130,6 +134,14 @@
                 <tr>
                     <td>${ingredient.id}</td>
                     <td>${ingredient.name}</td>
+                    <td>
+                        <a href="/ingredient/get?id=${ingredient.id}" class="btn btn-block">Get</a>
+                        <a href="/ingredient/update?id=${ingredient.id}" class="btn btn-block">Edit</a>
+                        <form action="/ingredient/delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="${ingredient.id}"/>
+                            <button type="submit" class="btn btn-block">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

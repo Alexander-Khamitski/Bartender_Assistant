@@ -114,7 +114,7 @@
 
 <body>
 <div class="form-container">
-    <h2>All ratings:</h2>
+    <h2>All ratings for cocktails:</h2>
     <form>
         <table class="table table-hover">
             <thead>

@@ -42,4 +42,9 @@ public class CocktailIngredientsServiceImpl implements CocktailIngredientsServic
     public void deleteCocktailIngredient(CocktailIngredient cocktailIngredient) {
         cocktailIngredientsRepository.delete(cocktailIngredient);
     }
+
+    @Override
+    public List<CocktailIngredient> getAllCocktailIngredientsByIngredientId(int ingredientId) {
+        return  cocktailIngredientsRepository.findByIngredientId(ingredientId);
+    }
 }

@@ -48,6 +48,47 @@
             background-color: #333;
         }
 
+        /*Buttons*/
+        .btn {
+            background-color: #ffc107;
+            color: black;
+            border: none; /* Убираем границу у кнопок */
+        }
+
+        .btn:hover {
+            background-color: #e0a800; /* Изменение цвета при наведении */
+            color: black;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center; /* Центрирование кнопок по горизонтали */
+        }
+
+        .btn-group .btn {
+            margin: 0 5px; /* Добавляет немного пространства между кнопками */
+            width: auto; /* Убирает 100% ширину для кнопок */
+        }
+
+        .table th:nth-child(6), .table td:nth-child(6) {
+            width: 200px; /* Ширина для кнопок действий */
+        }
+
+        /*NavBar*/
+        .navbar {
+            background-color: #1b1b1b;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+            font-size: 1.5em;
+            font-family: serif;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
+
         /*Pagination*/
         .pagination {
             display: flex;
@@ -75,43 +116,6 @@
             background-color: #555;
             color: white;
         }
-
-        /*Buttons*/
-        .btn {
-            background-color: #ffc107;
-            color: black;
-            border: none; /* Убираем границу у кнопок */
-        }
-
-        .btn:hover {
-            background-color: #e0a800; /* Изменение цвета при наведении */
-            color: black;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center; /* Центрирование кнопок по горизонтали */
-        }
-
-        .btn-group .btn {
-            margin: 0 5px; /* Добавляет немного пространства между кнопками */
-            width: auto; /* Убирает 100% ширину для кнопок */
-        }
-
-        /*NavBar*/
-        .navbar {
-            background-color: #1b1b1b;
-        }
-
-        .nav-link {
-            color: #f8f9fa;
-            font-size: 1.5em;
-            font-family: serif;
-        }
-
-        .nav-link:hover {
-            color: #ffc107;
-        }
     </style>
 </head>
 
@@ -130,6 +134,7 @@
                 <th>Average rating:</th>
                 <sec:authorize access="hasRole('admin') or hasRole('bartender')">
                     <th>Status:</th>
+                    <th>Actions:</th>
                 </sec:authorize>
             </tr>
             </thead>
@@ -141,9 +146,17 @@
                     </sec:authorize>
                     <td>${cocktail.name}</td>
                     <td>${cocktail.description}</td>
-                    <td><fmt:formatNumber value="${averageRatings[cocktail.id]}" maxFractionDigits="2" /></td>
+                    <td><fmt:formatNumber value="${averageRatings[cocktail.id]}" maxFractionDigits="2"/></td>
                     <sec:authorize access="hasRole('admin') or hasRole('bartender')">
                         <td>${cocktail.status.status}</td>
+                        <td>
+                            <a href="/cocktail/get?id=${cocktail.id}" class="btn btn-block">Get</a>
+                            <a href="/cocktail/update?id=${cocktail.id}" class="btn btn-block">Edit</a>
+                            <form action="/cocktail/delete" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="${cocktail.id}"/>
+                                <button type="submit" class="btn btn-block">Delete</button>
+                            </form>
+                        </td>
                     </sec:authorize>
                 </tr>
             </c:forEach>
