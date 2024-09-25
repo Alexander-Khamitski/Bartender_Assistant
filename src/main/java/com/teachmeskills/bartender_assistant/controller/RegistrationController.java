@@ -24,11 +24,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView createUser(@Valid @ModelAttribute UserCreateDTO userCreateDto, BindingResult result, Model model) {
+    public ModelAndView createUser(@Valid @ModelAttribute("userCreateDto") UserCreateDTO userCreateDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            System.out.println("here is errors: ");
-            result.getAllErrors().forEach(error -> System.out.println(error.toString()));
-            model.addAttribute("userCreateDto", userCreateDto);
             return new ModelAndView("create/user/registrationForm", "userCreateDto", userCreateDto);
         }
         userService.createUser(userCreateDto);

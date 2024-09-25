@@ -47,7 +47,6 @@
         .password-container {
             position: relative;
             align-items: center;
-            position: relative;
         }
 
         .password-container input {
@@ -100,20 +99,23 @@
     <div class="form-container">
         <form:form action="${pageContext.request.contextPath}/registration" method="post" modelAttribute="userCreateDto">
             <div class="form-group mb-3">
-                <form:errors path="username" cssClass="mt-5"/>
                 <label for="username" path="username">Username:</label>
+                <br>
+                <form:errors path="username" cssClass="text-danger"/>
                 <form:input type="text" path="username" class="form-control" id="username"/>
             </div>
             <div class="form-group mb-3">
                 <label for="login" path="login">Login:</label>
-                <form:input type="text" path="login" class="form-control" id="login"/>
+                <br>
                 <form:errors path="login" cssClass="text-danger"/>
+                <form:input type="text" path="login" class="form-control" id="login"/>
             </div>
             <div class="form-group mb-3">
                 <label for="password" path="password">Password:</label>
+                <br>
+                <form:errors path="password" cssClass="text-danger"/>
                 <div class="password-container">
                     <form:password path="password" class="form-control" id="password"/>
-                    <form:errors path="password" cssClass="text-danger"/>
                     <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
                 </div>
             </div>
