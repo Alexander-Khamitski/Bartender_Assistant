@@ -116,7 +116,16 @@
                 <form:errors path="password" cssClass="text-danger"/>
                 <div class="password-container">
                     <form:password path="password" class="form-control" id="password"/>
-                    <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
+                    <i class="fa fa-eye toggle-password eye-1" onclick="togglePassword('password', 'eye-1')"></i>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="confirm-password">Confirm password:</label>
+                <br>
+                <span class="text-danger" id="confirmPasswordError"></span>
+                <div class="password-container">
+                    <input type="password" class="form-control" id="confirm-password" name="confirmPassword"/>
+                    <i class="fa fa-eye toggle-password eye-2" onclick="togglePassword('confirm-password', 'eye-2')"></i>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary w-100">Register</button>
@@ -126,10 +135,9 @@
 </div>
 
 <script>
-    function togglePassword() {
-        const passwordField = document.getElementById('password');
-        const eyeIcon = document.querySelector('.toggle-password');
-
+    function togglePassword(elementId, toggle) {
+        const passwordField = document.getElementById(elementId);
+        const eyeIcon = document.querySelector(toggle);
         if (passwordField.type === 'password') {
             passwordField.type = 'text';
             eyeIcon.classList.remove('fa-eye');
