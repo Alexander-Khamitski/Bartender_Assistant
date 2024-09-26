@@ -115,7 +115,7 @@
                 <br>
                 <form:errors path="password" cssClass="text-danger"/>
                 <div class="password-container">
-                    <form:password path="password" class="form-control" id="password"/>
+                    <form:password path="password" class="form-control" id="password" oninput="checkPasswordMatch()"/>
                     <i class="fa fa-eye toggle-password eye-1" onclick="togglePassword('password', 'eye-1')"></i>
                 </div>
             </div>
@@ -124,7 +124,7 @@
                 <br>
                 <span class="text-danger" id="confirmPasswordError"></span>
                 <div class="password-container">
-                    <input type="password" class="form-control" id="confirm-password" name="confirmPassword"/>
+                    <input type="password" class="form-control" id="confirm-password" name="confirmPassword" oninput="checkPasswordMatch()"/>
                     <i class="fa fa-eye toggle-password eye-2" onclick="togglePassword('confirm-password', 'eye-2')"></i>
                 </div>
             </div>
@@ -146,6 +146,16 @@
             passwordField.type = 'password';
             eyeIcon.classList.remove('fa-eye-slash');
             eyeIcon.classList.add('fa-eye');
+        }
+    }
+
+    function checkPasswordMatch() {
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+        if (password !== confirmPassword) {
+            document.getElementById("confirm-password").setCustomValidity("Passwords do not match!");
+        } else {
+            document.getElementById("confirm-password").setCustomValidity("");
         }
     }
 </script>
