@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.teachmeskills.bartender_assistant.entity.Cocktail;
 import com.teachmeskills.bartender_assistant.repository.CocktailRepository;
+import com.teachmeskills.bartender_assistant.service.impl.CocktailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.teachmeskills.bartender_assistant.service.impl.CocktailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,6 +49,11 @@ public class CocktailServiceImpl implements CocktailService {
     @Override
     public boolean isCocktailExist(int id) {
         return cocktailRepository.existsById(id);
+    }
+
+    @Override
+    public boolean isCocktailExist(String name) {
+        return cocktailRepository.existsByName(name);
     }
 
     public Page<Cocktail> getAllCocktails(Pageable pageable) {

@@ -41,8 +41,8 @@
             font-weight: bold;
         }
 
-        .half-width {
-            width: 48%; /* Set buttons to 48% width to allow space between them */
+        .width {
+            width: auto;
         }
 
         /*NavBar*/
@@ -66,7 +66,7 @@
     <div class="form-container">
         <p>${message}</p>
         <div class="d-flex justify-content-between mt-4">
-            <a href="/main" class="btn btn-secondary half-width">Main Page</a>
+            <a href="/main" class="btn btn-secondary width">Main Page</a>
         </div>
     </div>
 </div>

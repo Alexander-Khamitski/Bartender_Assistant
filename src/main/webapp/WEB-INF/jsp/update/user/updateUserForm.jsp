@@ -56,6 +56,7 @@
             padding: 5px;
             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
             border-radius: 50%; /* Rounded background */
+            transform: translateY(-50%);
         }
 
         .password-container .toggle-password:hover {

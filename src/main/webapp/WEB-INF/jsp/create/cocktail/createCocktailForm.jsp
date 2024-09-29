@@ -66,14 +66,19 @@
     <div class="form-container">
         <form:form action="${pageContext.request.contextPath}/cocktail/create" method="post" modelAttribute="cocktail">
             <div class="form-group mb-3">
-                <form:errors path="name" cssClass="mt-5"/>
                 <label for="name" path="name">Name:</label>
+                <br>
+                <c:if test="${message != null}">
+                    <p class="text-warning">${message}</p>
+                </c:if>
+                <form:errors path="name" cssClass="text-danger"/>
                 <form:input type="text" path="name" class="form-control" id="username"/>
             </div>
             <div class="form-group mb-3">
                 <label for="login" path="login">Description:</label>
-                <form:input type="text" path="description" class="form-control" id="login"/>
+                <br>
                 <form:errors path="description" cssClass="text-danger"/>
+                <form:input type="text" path="description" class="form-control" id="login"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Create cocktail</button>
             <a href="/main/cocktails" class="btn btn-secondary w-100 mt-2">Back</a>

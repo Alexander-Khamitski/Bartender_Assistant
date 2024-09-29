@@ -56,6 +56,7 @@
             padding: 5px;
             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
             border-radius: 50%; /* Rounded background */
+            transform: translateY(-50%);
         }
 
         .password-container .toggle-password:hover {
@@ -81,32 +82,35 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="mt-5">Leave cocktail review:</h2>
+    <h2 class="mt-5">Add cocktail review:</h2>
     <div class="form-container">
         <form:form action="${pageContext.request.contextPath}/cocktail/rating/create" method="post" modelAttribute="cocktailRating">
             <div class="form-group mb-3">
                 <label for="user">User:</label>
+                <br>
+                <form:errors path="user" cssClass="text-danger"/>
                 <form:input type="text" path="user.username" class="form-control" id="user" value="${user.username}" readonly="true"/>
                 <form:hidden path="user.id" value="${user.id}"/>
-                <form:errors path="user" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="cocktail">Cocktail:</label>
+                <br>
+                <form:errors path="cocktail" cssClass="text-danger"/>
                 <form:select path="cocktail" class="form-control" id="cocktail">
-                    <form:option value="" label="-- Select Cocktail --"/>
+                    <form:option value="" label="-- Select cocktail --"/>
                     <form:options items="${cocktails}" itemValue="id" itemLabel="name"/>
                 </form:select>
-                <form:errors path="cocktail" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="rating">Rating:</label>
+                <br>
+                <form:errors path="rating" cssClass="text-danger"/>
                 <form:select path="rating" class="form-control" id="rating">
                     <form:option value="" label="-- Select rating --"/>
                     <form:options items="${ratings}"/>
                 </form:select>
-                <form:errors path="rating" cssClass="text-danger"/>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Leave cocktail review</button>
+            <button type="submit" class="btn btn-primary w-100">Add</button>
             <a href="/ratings" class="btn btn-secondary w-100 mt-2">Back to cocktail ratings</a>
         </form:form>
     </div>

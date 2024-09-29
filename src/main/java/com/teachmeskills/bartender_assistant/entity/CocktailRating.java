@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,10 +31,12 @@ public class CocktailRating {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @NotNull(message = "Cocktail is required.")
     @ManyToOne
     @JoinColumn(name = "cocktail_id")
     private Cocktail cocktail;
 
+    @NotNull(message = "Rating is required.")
     @Column(name = "rating")
     private Integer rating;
 }

@@ -84,6 +84,7 @@
             padding: 5px;
             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
             border-radius: 50%; /* Rounded background */
+            transform: translateY(-50%);
         }
 
         .password-container .toggle-password:hover {
@@ -111,22 +112,21 @@
 <div class="container">
     <h2 class="mt-5">Sign In</h2>
     <div class="form-container">
-        <p class="text-warning">${message}</p>
-        <form:form modelAttribute="signInDTO" id="loginForm" action="/login" method="post">
+        <p class="text-danger">${message}</p>
+        <form:form action="${pageContext.request.contextPath}/login" method="post" modelAttribute="signInDto">
             <div class="form-group mb-3">
                 <label for="login">Login:</label>
-                <form:input path="login" class="form-control" id="login"/>
+                <br>
                 <form:errors path="login" cssClass="text-danger"/>
-                <c:if test="${not empty result.fieldErrorMap['login']}">
-                    <p class="text-warning">${result.fieldErrorMap['login'].defaultMessage}</p>
-                </c:if>
+                <form:input type="text" path="login" class="form-control" id="login"/>
             </div>
             <div class="form-group mb-3">
                 <label for="password">Password:</label>
+                <br>
+                <form:errors path="password" cssClass="text-danger"/>
                 <div class="password-container">
                     <form:password path="password" class="form-control" id="password"/>
                     <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
-                    <form:errors path="password" cssClass="text-danger"/>
                 </div>
             </div>
             <button type="submit" class="btn btn-secondary w-100 mt-2">Sign in</button>

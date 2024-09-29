@@ -78,9 +78,6 @@ public class IngredientController {
 
     @GetMapping(value = "/delete")
     public ModelAndView fillDeleteIngredientForm(@RequestParam(value = "id", required = false) Integer id) {
-        if (id != null) {
-
-        }
         return new ModelAndView("delete/ingredient/deleteIngredientForm", "ingredient", new Ingredient());
     }
 

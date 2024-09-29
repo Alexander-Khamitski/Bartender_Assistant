@@ -3,10 +3,11 @@ package com.teachmeskills.bartender_assistant.controller;
 import com.teachmeskills.bartender_assistant.entity.Cocktail;
 import com.teachmeskills.bartender_assistant.service.CocktailServiceImpl;
 import com.teachmeskills.bartender_assistant.service.CocktailStatusServiceImpl;
-import com.teachmeskills.bartender_assistant.validator.CocktailValidator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,15 +30,22 @@ public class CocktailController {
     }
 
     @PostMapping(value = "/create")
-    public ModelAndView createCocktail(@ModelAttribute Cocktail cocktail, Model model) {
-        if (CocktailValidator.isCocktailValid(cocktail)) {
-            cocktailService.createCocktail(cocktail);
-            String message = String.format("Cocktail '%s' has been created successfully!", cocktail.getName());
-            model.addAttribute("message", message);
-            return new ModelAndView("create/cocktail/createdCocktail", "cocktail", new Cocktail());
+    public ModelAndView createCocktail(@Valid @ModelAttribute("cocktail") Cocktail cocktail, BindingResult result,
+                                       Model model) {
+        String cocktailName = cocktail.getName();
+        String message;
+        boolean isCocktailExist = cocktailService.isCocktailExist(cocktailName);
+        if (result.hasErrors() || isCocktailExist) {
+            if (isCocktailExist) {
+                message = String.format("Cocktail '%s' exist. Duplication is not allowed.", cocktailName);
+                model.addAttribute("message", message);
+            }
+            return new ModelAndView("create/cocktail/createCocktailForm", "cocktail", cocktail);
         }
-        model.addAttribute("message", "Please, fill in valid data.");
-        return new ModelAndView("create/cocktail/createCocktailForm", "cocktail", new Cocktail());
+        cocktailService.createCocktail(cocktail);
+        message = String.format("Cocktail '%s' has been added for review!", cocktailName);
+        model.addAttribute("message", message);
+        return new ModelAndView("create/cocktail/createdCocktail");
     }
 
     @GetMapping(value = "/get")
@@ -55,9 +63,7 @@ public class CocktailController {
     public ModelAndView fillUpdateCocktailForm(@RequestParam(value = "id", required = false) Integer id, Model model) {
         model.addAttribute("statuses", cocktailStatusService.getAllStatuses());
         if (id != null) {
-            Cocktail cocktail = cocktailService.getCocktail(id);
-            model.addAttribute("cocktail", cocktail);
-            return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", cocktail);
+            return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", cocktailService.getCocktail(id));
         }
         return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", new Cocktail());
     }

@@ -50,6 +50,7 @@
         .password-container .toggle-password {
             position: absolute;
             right: 10px;
+            transform: translateY(-50%);
             top: 50%;
             cursor: pointer;
             color: #ffc107; /* Yellow color for contrast */
@@ -80,50 +81,65 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h2 class="mt-5">Update user:</h2>
-    <div class="form-container">
-        <form:form action="${pageContext.request.contextPath}/user/profile/update" method="post" modelAttribute="existingUser">
-            <div class="form-group mb-3">
-                <label>ID:</label>
-                <form:input type="number" path="id" class="form-control" id="id" value="${existingUser.id}"
-                            readonly="true"/>
-                <form:errors path="id" cssClass="text-danger"/>
-            </div>
-            <div class="form-group mb-3">
-                <label for="username">Username:</label>
-                <form:input type="text" path="username" class="form-control" id="username" value="${existingUser.username}"/>
-                <form:errors path="username" cssClass="text-danger"/>
-            </div>
-            <div class="form-group mb-3">
-                <label for="login">Login:</label>
-                <form:input type="text" path="login" class="form-control" id="login" value="${existingUser.login}"/>
-                <form:errors path="login" cssClass="text-danger"/>
-            </div>
-            <div class="form-group mb-3 password-container">
-                <label for="password">Password:</label>
-                <form:password path="password" class="form-control" id="password"/>
-                <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
-                <form:errors path="password" cssClass="text-danger"/>
-            </div>
-            <div class="form-group mb-3">
-                <label for="role">Role:</label>
-                <form:input type="text" path="role.roleName" class="form-control" id="role" value="${existingUser.role.roleName}" readonly="true"/>
-                <form:hidden path="role.id" value="${existingUser.role.id}"/>
-                <form:errors path="role" cssClass="text-danger"/>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Update user</button>
+<div class="form-container">
+    <h2>Update user:</h2>
+    <form:form action="${pageContext.request.contextPath}/user/profile/update" method="post"
+               modelAttribute="existingUser">
+        <div class="form-group mb-3">
+            <label>ID:</label>
+            <form:errors path="id" cssClass="text-danger"/>
+            <form:input type="number" path="id" class="form-control" id="id" value="${existingUser.id}"
+                        readonly="true"/>
+        </div>
+        <div class="form-group mb-3">
+            <label for="username">Username:</label>
             <br>
-            <a href="/user/profile" class="btn btn-secondary w-100 mt-2">Back to profile</a>
-        </form:form>
-    </div>
+            <form:errors path="username" cssClass="text-danger"/>
+            <form:input type="text" path="username" class="form-control" id="username"
+                        value="${existingUser.username}"/>
+        </div>
+        <div class="form-group mb-3">
+            <label for="login">Login:</label>
+            <br>
+            <form:errors path="login" cssClass="text-danger"/>
+            <form:input type="text" path="login" class="form-control" id="login" value="${existingUser.login}"/>
+        </div>
+        <div class="form-group mb-3">
+            <label for="password" path="password">Password:</label>
+            <br>
+            <form:errors path="password" cssClass="text-danger"/>
+            <div class="password-container">
+                <form:password path="password" class="form-control" id="password" oninput="checkPasswordMatch()"/>
+                <i class="fa fa-eye toggle-password eye-1" onclick="togglePassword('password', 'eye-1')"></i>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="confirm-password">Confirm password:</label>
+            <br>
+            <span class="text-danger" id="confirmPasswordError"></span>
+            <div class="password-container">
+                <input type="password" class="form-control" id="confirm-password" name="confirmPassword"
+                       oninput="checkPasswordMatch()"/>
+                <i class="fa fa-eye toggle-password eye-2" onclick="togglePassword('confirm-password', 'eye-2')"></i>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="role">Role:</label>
+            <form:errors path="role" cssClass="text-danger"/>
+            <form:input type="text" path="role.roleName" class="form-control" id="role"
+                        value="${existingUser.role.roleName}" readonly="true"/>
+            <form:hidden path="role.id" value="${existingUser.role.id}"/>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Update</button>
+        <br>
+        <a href="/user/profile" class="btn btn-secondary w-100 mt-2">Back to profile</a>
+    </form:form>
 </div>
 
 <script>
-    function togglePassword() {
-        const passwordField = document.getElementById('password');
-        const eyeIcon = document.querySelector('.toggle-password');
-
+    function togglePassword(elementId, toggle) {
+        const passwordField = document.getElementById(elementId);
+        const eyeIcon = document.querySelector(toggle);
         if (passwordField.type === 'password') {
             passwordField.type = 'text';
             eyeIcon.classList.remove('fa-eye');
@@ -132,6 +148,16 @@
             passwordField.type = 'password';
             eyeIcon.classList.remove('fa-eye-slash');
             eyeIcon.classList.add('fa-eye');
+        }
+    }
+
+    function checkPasswordMatch() {
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+        if (password !== confirmPassword) {
+            document.getElementById("confirm-password").setCustomValidity("Passwords do not match!");
+        } else {
+            document.getElementById("confirm-password").setCustomValidity("");
         }
     }
 </script>

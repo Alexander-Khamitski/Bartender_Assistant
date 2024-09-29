@@ -123,7 +123,7 @@
         <div class="form-container">
             <p>Your profile has been edited. You have to relogin.</p>
             <div class="d-flex justify-content-between mt-4">
-                <a href="/logout" class="btn btn-secondary half-width">Log Out</a>
+                <a href="/logout" class="btn btn-secondary">Log Out</a>
             </div>
         </div>
     </div>

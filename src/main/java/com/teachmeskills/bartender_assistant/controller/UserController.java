@@ -4,9 +4,11 @@ import com.teachmeskills.bartender_assistant.dto.UserDTO;
 import com.teachmeskills.bartender_assistant.entity.User;
 import com.teachmeskills.bartender_assistant.service.RoleServiceImpl;
 import com.teachmeskills.bartender_assistant.service.UserServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,7 +57,7 @@ public class UserController {
         return new ModelAndView("update/user/updateUserForm");
     }
 
-    @GetMapping(value = "/admin/user/delete")
+    @PostMapping(value = "/admin/user/delete")
     public ModelAndView deleteUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
         if (id != null && userService.isUserExist(id)) {
             UserDTO userDto = userService.getUserDto(id);
@@ -77,12 +79,15 @@ public class UserController {
 
     @GetMapping(value = "/user/profile/update")
     public ModelAndView updateUserProfile(Model model) {
-        User user = userService.getProfileInfo(model);
-        return new ModelAndView("update/user/updateUserProfileForm", "existingUser", user);
+        User existingUser = userService.getProfileInfo(model);
+        return new ModelAndView("update/user/updateUserProfileForm", "existingUser", existingUser);
     }
 
     @PostMapping(value = "/user/profile/update")
-    public ModelAndView updateUserProfile(@ModelAttribute User user) {
+    public ModelAndView updateUserProfile(@Valid @ModelAttribute("existingUser") User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ModelAndView("update/user/updateUserProfileForm", "existingUser", user);
+        }
         User updatedUser = userService.updateUser(user);
         return new ModelAndView("update/user/updatedUserPage", "updatedUser", updatedUser);
     }
