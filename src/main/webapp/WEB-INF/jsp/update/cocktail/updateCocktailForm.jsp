@@ -61,26 +61,33 @@
         <form:form action="${pageContext.request.contextPath}/cocktail/update" method="post" modelAttribute="cocktail">
             <div class="form-group mb-3">
                 <label for="id">ID:</label>
-                <form:input type="number" path="id" class="form-control" id="id" value="${cocktail.id}"/>
+                <br>
+                <c:if test="${message != null}">
+                    <p class="text-warning">${message}</p>
+                </c:if>
                 <form:errors path="id" cssClass="text-danger"/>
+                <form:input type="number" path="id" class="form-control" id="id" value="${cocktail.id}"/>
             </div>
             <div class="form-group mb-3">
                 <label for="name">Name:</label>
-                <form:input type="text" path="name" class="form-control" id="name" value="${cocktail.name}"/>
+                <br>
                 <form:errors path="name" cssClass="text-danger"/>
+                <form:input type="text" path="name" class="form-control" id="name" value="${cocktail.name}"/>
             </div>
             <div class="form-group mb-3">
                 <label for="description">Description:</label>
-                <form:input type="text" path="description" class="form-control" id="description"/>
+                <br>
                 <form:errors path="description" cssClass="text-danger"/>
+                <form:input type="text" path="description" class="form-control" id="description"/>
             </div>
             <div class="form-group mb-3">
                 <label for="status">Status:</label>
+                <br>
+                <form:errors path="status" cssClass="text-danger"/>
                 <form:select path="status" class="form-control" id="status">
                     <form:option value="" label="-- Select Status --"/>
                     <form:options items="${statuses}" itemValue="id" itemLabel="status"/>
                 </form:select>
-                <form:errors path="status" cssClass="text-danger"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Update cocktail</button>
             <a href="/main/cocktails" class="btn btn-secondary w-100 mt-2">Back</a>

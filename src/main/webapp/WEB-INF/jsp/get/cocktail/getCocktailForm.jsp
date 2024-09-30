@@ -62,17 +62,22 @@
 
 <body>
 <div class="form-container">
-    <h2>Get cocktail by ID:</h2>
-    <form action="/cocktail/get" method="get">
-        <div class="form-group">
+    <h2>Get cocktail:</h2>
+    <form action="${pageContext.request.contextPath}/cocktail/get" method="get">
+        <div class="form-group mb-3">
+            <label for="cocktail">Cocktail:</label>
             <br>
-            <label for="id">Enter ID:</label>
-            <input type="number" id="id" name="id" class="form-control" required/>
-            <br>
+            <select name="id" class="form-control" id="cocktail" required>
+                <option value="" disabled selected>-- Select cocktail --</option>
+                <c:forEach var="cocktail" items="${cocktails}">
+                    <option value="${cocktail.id}">${cocktail.name}</option>
+                </c:forEach>
+            </select>
         </div>
         <button type="submit" class="btn w-100">Get cocktail</button>
         <a href="/main/cocktails" class="btn btn-secondary w-100 mt-2">Back</a>
     </form>
+
 </div>
 </body>
 </html>

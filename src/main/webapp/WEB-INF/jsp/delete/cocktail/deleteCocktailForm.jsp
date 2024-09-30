@@ -62,15 +62,19 @@
 
 <body>
 <div class="form-container">
-    <h2>Delete cocktail by ID:</h2>
-    <form action="/cocktail/delete" method="post">
-        <div class="form-group">
+    <h2>Delete cocktail:</h2>
+    <form action="${pageContext.request.contextPath}/cocktail/delete" method="post">
+        <div class="form-group mb-3">
+            <label for="cocktail">Cocktail:</label>
             <br>
-            <label for="id">Enter ID:</label>
-            <input type="number" id="id" name="id" class="form-control" required/>
-            <br>
+            <select name="id" class="form-control" id="cocktail" required>
+                <option value="" disabled selected>-- Select cocktail --</option>
+                <c:forEach var="cocktail" items="${cocktails}">
+                    <option value="${cocktail.id}">${cocktail.name}</option>
+                </c:forEach>
+            </select>
         </div>
-        <button type="submit" class="btn w-100">Delete cocktail</button>
+        <button type="submit" class="btn w-100">Delete</button>
         <a href="/main/cocktails" class="btn btn-secondary w-100 mt-2">Back</a>
     </form>
 </div>

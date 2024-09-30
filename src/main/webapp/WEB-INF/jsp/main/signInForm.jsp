@@ -118,14 +118,14 @@
                 <label for="login">Login:</label>
                 <br>
                 <form:errors path="login" cssClass="text-danger"/>
-                <form:input type="text" path="login" class="form-control" id="login"/>
+                <form:input type="text" path="login" class="form-control" id="login" value="bartender"/>
             </div>
             <div class="form-group mb-3">
                 <label for="password">Password:</label>
                 <br>
                 <form:errors path="password" cssClass="text-danger"/>
                 <div class="password-container">
-                    <form:password path="password" class="form-control" id="password"/>
+                    <form:password path="password" class="form-control" id="password" value="bartender"/>
                     <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
                 </div>
             </div>

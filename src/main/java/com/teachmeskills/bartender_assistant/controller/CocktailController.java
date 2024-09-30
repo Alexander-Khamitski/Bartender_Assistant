@@ -1,5 +1,7 @@
 package com.teachmeskills.bartender_assistant.controller;
 
+import java.util.List;
+
 import com.teachmeskills.bartender_assistant.entity.Cocktail;
 import com.teachmeskills.bartender_assistant.service.CocktailServiceImpl;
 import com.teachmeskills.bartender_assistant.service.CocktailStatusServiceImpl;
@@ -50,13 +52,14 @@ public class CocktailController {
 
     @GetMapping(value = "/get")
     public ModelAndView getCocktail(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        if (id != null && cocktailService.isCocktailExist(id)) {
+        if (id != null) {
             Cocktail cocktail = cocktailService.getCocktail(id);
             model.addAttribute("cocktail", cocktail);
             return new ModelAndView("get/cocktail/getCocktail");
         }
-        model.addAttribute("message", "Please, fill in valid data.");
-        return new ModelAndView("get/cocktail/getCocktailForm", "cocktail", new Cocktail());
+        List<Cocktail> cocktails = cocktailService.getAllCocktails();
+        model.addAttribute("cocktails", cocktails);
+        return new ModelAndView("get/cocktail/getCocktailForm", "cocktails", cocktails);
     }
 
     @GetMapping(value = "/update")
@@ -65,40 +68,49 @@ public class CocktailController {
         if (id != null) {
             return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", cocktailService.getCocktail(id));
         }
+        List<Cocktail> cocktails = cocktailService.getAllCocktails();
+        model.addAttribute("cocktails", cocktails);
         return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", new Cocktail());
     }
 
     @PostMapping(value = "/update")
-    public ModelAndView updateCocktail(@ModelAttribute Cocktail cocktail, Model model) {
+    public ModelAndView updateCocktail(@Valid @ModelAttribute("cocktail") Cocktail cocktail, BindingResult result,
+                                       Model model) {
         int cocktailId = cocktail.getId();
-        if (cocktailService.isCocktailExist(cocktailId)) {
-            Cocktail existingCocktail = cocktailService.getCocktail(cocktailId);
-            existingCocktail.setName(cocktail.getName());
-            existingCocktail.setDescription(cocktail.getDescription());
-            existingCocktail.setStatus(cocktail.getStatus());
-            cocktailService.updateCocktail(existingCocktail);
-            String message = String.format("Cocktail '%s' has been updated successfully!", cocktail.getName());
-            model.addAttribute("message", message);
-            return new ModelAndView("update/cocktail/updatedCocktail", "cocktail", new Cocktail());
+        boolean isCocktailExist = cocktailService.isCocktailExist(cocktailId);
+        String message;
+        if (result.hasErrors() || !isCocktailExist) {
+            model.addAttribute("statuses", cocktailStatusService.getAllStatuses());
+            if (!isCocktailExist) {
+                message = String.format("Cocktail with '%s' ID does not exist. Please, enter valid cocktail id.",
+                                        cocktailId);
+                model.addAttribute("message", message);
+            }
+            return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", cocktail);
         }
-        model.addAttribute("message", "Please, fill in valid data.");
-        return new ModelAndView("update/cocktail/updateCocktailForm", "cocktail", new Cocktail());
+        Cocktail existingCocktail = cocktailService.getCocktail(cocktailId);
+        existingCocktail.setName(cocktail.getName());
+        existingCocktail.setDescription(cocktail.getDescription());
+        existingCocktail.setStatus(cocktail.getStatus());
+        cocktailService.updateCocktail(existingCocktail);
+        message = String.format("Cocktail '%s' has been updated successfully!", cocktail.getName());
+        model.addAttribute("message", message);
+        return new ModelAndView("update/cocktail/updatedCocktail");
+
     }
 
     @GetMapping(value = "/delete")
-    public ModelAndView fillDeleteCocktailForm() {
+    public ModelAndView fillDeleteCocktailForm(Model model) {
+        List<Cocktail> cocktails = cocktailService.getAllCocktails();
+        model.addAttribute("cocktails", cocktails);
         return new ModelAndView("delete/cocktail/deleteCocktailForm", "cocktail", new Cocktail());
     }
 
     @PostMapping(value = "/delete")
-    public ModelAndView deleteCocktail(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        if (cocktailService.isCocktailExist(id)) {
-            cocktailService.deleteCocktail(id);
-            String message = String.format("Cocktail with '%s' id has been deleted successfully!", id);
-            model.addAttribute("message", message);
-            return new ModelAndView("delete/cocktail/deletedCocktail", "cocktail", new Cocktail());
-        }
-        model.addAttribute("message", "Please, fill in valid data.");
-        return new ModelAndView("delete/cocktail/deleteCocktailForm", "cocktail", new Cocktail());
+    public ModelAndView deleteCocktail(@RequestParam(value = "id") Integer id, Model model) {
+        cocktailService.deleteCocktail(id);
+        String message = String.format("Cocktail with '%s' id has been deleted successfully!", id);
+        model.addAttribute("message", message);
+        return new ModelAndView("delete/cocktail/deletedCocktail");
     }
 }
