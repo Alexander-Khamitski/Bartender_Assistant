@@ -40,7 +40,7 @@ public class Cocktail {
     private String name;
 
     @NotBlank(message = "Description is required.")
-    @Size(min = 3, max = 50, message = "Description must be between 3 and 50 characters.")
+    @Size(min = 3, max = 500, message = "Description must be between 3 and 500 characters.")
     @Column(name = "description")
     @Getter
     @Setter

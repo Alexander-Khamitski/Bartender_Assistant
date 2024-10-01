@@ -61,7 +61,7 @@
         <form:form action="${pageContext.request.contextPath}/ingredient/update" method="post" modelAttribute="ingredient">
             <div class="form-group mb-3">
                 <label for="id">ID:</label>
-                <form:input type="text" path="id" class="form-control" id="id" value="${ingredient.id}" readonly="true"/>
+                <form:input type="text" path="id" class="form-control" id="id" value="${ingredient.id}"/>
                 <form:errors path="id" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">

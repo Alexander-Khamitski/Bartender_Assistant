@@ -58,7 +58,6 @@ public class CocktailController {
             return new ModelAndView("get/cocktail/getCocktail");
         }
         List<Cocktail> cocktails = cocktailService.getAllCocktails();
-        model.addAttribute("cocktails", cocktails);
         return new ModelAndView("get/cocktail/getCocktailForm", "cocktails", cocktails);
     }
 

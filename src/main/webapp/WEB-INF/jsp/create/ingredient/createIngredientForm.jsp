@@ -65,10 +65,10 @@
     <h2 class="mt-5">Create ingredient</h2>
     <div class="form-container">
         <form:form action="${pageContext.request.contextPath}/ingredient/create" method="post" modelAttribute="ingredient">
-            <p class="text-warning">${message}</p>
             <div class="form-group mb-3">
-                <form:errors path="name" cssClass="mt-5"/>
                 <label for="name" path="name">Name:</label>
+                <br>
+                <form:errors path="name" cssClass="text-danger"/>
                 <form:input type="text" path="name" class="form-control" id="name"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Create ingredient</button>

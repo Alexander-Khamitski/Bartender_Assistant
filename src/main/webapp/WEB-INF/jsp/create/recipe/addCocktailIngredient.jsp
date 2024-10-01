@@ -61,27 +61,31 @@
         <form:form action="${pageContext.request.contextPath}/cocktail/ingredient/add" method="post" modelAttribute="cocktailIngredient">
             <div class="form-group mb-3">
                 <label for="cocktail">Cocktail:</label>
+                <br>
+                <form:errors path="cocktail" cssClass="text-danger"/>
                 <form:input type="text" path="cocktail.name" class="form-control" id="cocktail" value="${cocktail.name}" readonly="true"/>
                 <form:hidden path="cocktail.id" value="${cocktail.id}"/>
-                <form:errors path="cocktail" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="ingredient">Ingredient:</label>
+                <br>
+                <form:errors path="ingredient" cssClass="text-danger"/>
                 <form:select path="ingredient" class="form-control" id="ingredient">
                     <form:option value="" label="-- Select ingredient --"/>
                     <form:options items="${ingredients}" itemValue="id" itemLabel="name"/>
                 </form:select>
-                <form:errors path="ingredient" cssClass="text-danger"/>
             </div>
             <div class="form-group mb-3">
                 <label for="amount">Amount:</label>
-                <form:input type="number" path="amount" class="form-control" id="amount"/>
+                <br>
                 <form:errors path="amount" cssClass="text-danger"/>
+                <form:input type="number" path="amount" class="form-control" id="amount"/>
             </div>
             <div class="form-group mb-3">
                 <label for="unit">Unit:</label>
-                <form:input type="text" path="unit" class="form-control" id="unit"/>
+                <br>
                 <form:errors path="unit" cssClass="text-danger"/>
+                <form:input type="text" path="unit" class="form-control" id="unit"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Add</button>
             <a href="/recipe/get?id=${cocktail.id}" class="btn btn-secondary w-100 mt-2">Back to cocktail recipe</a>

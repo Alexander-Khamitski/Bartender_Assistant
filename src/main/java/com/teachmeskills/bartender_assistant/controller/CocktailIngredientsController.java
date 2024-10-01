@@ -9,12 +9,14 @@ import com.teachmeskills.bartender_assistant.entity.Ingredient;
 import com.teachmeskills.bartender_assistant.service.CocktailIngredientsServiceImpl;
 import com.teachmeskills.bartender_assistant.service.CocktailServiceImpl;
 import com.teachmeskills.bartender_assistant.service.IngredientServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,6 @@ public class CocktailIngredientsController {
     private CocktailServiceImpl cocktailService;
     @Autowired
     private IngredientServiceImpl ingredientService;
-
 
     @GetMapping("/recipes")
     public ModelAndView showRecipesPage(@RequestParam(defaultValue = "0") int page, Model model) {
@@ -48,7 +49,8 @@ public class CocktailIngredientsController {
     public ModelAndView getRecipe(@RequestParam(value = "id") Integer id, Model model) {
         Cocktail cocktail = cocktailService.getCocktail(id);
         model.addAttribute("cocktail", cocktail);
-        List<CocktailIngredient> cocktailIngredients = cocktailIngredientsService.getAllCocktailIngredientsByCocktailId(id);
+        List<CocktailIngredient> cocktailIngredients = cocktailIngredientsService.getAllCocktailIngredientsByCocktailId(
+                id);
         model.addAttribute("cocktailIngredients", cocktailIngredients);
         return new ModelAndView("get/recipe/getRecipe");
     }
@@ -56,14 +58,21 @@ public class CocktailIngredientsController {
     @GetMapping("/cocktail/ingredient/update")
     public ModelAndView updateCocktailIngredientForm(@RequestParam(value = "id") Integer id, Model model) {
         CocktailIngredient cocktailIngredient = cocktailIngredientsService.getCocktailIngredient(id);
-        model.addAttribute("cocktailIngredient", cocktailIngredient);;
+        model.addAttribute("cocktailIngredient", cocktailIngredient);
         return new ModelAndView("update/recipe/updateCocktailIngredientForm");
     }
 
     @PostMapping(value = "/cocktail/ingredient/update")
-    public ModelAndView updateCocktailIngredient(@ModelAttribute CocktailIngredient cocktailIngredient, Model model) {
+    public ModelAndView updateCocktailIngredient(@Valid @ModelAttribute("cocktailIngredient") CocktailIngredient cocktailIngredient,
+                                                 BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return new ModelAndView("update/recipe/updateCocktailIngredientForm", "cocktailIngredient",
+                                    cocktailIngredient);
+        }
         cocktailIngredientsService.updateCocktailIngredient(cocktailIngredient);
-        String message = String.format("Cocktail ingredient '%s' in '%s' cocktail has been updated successfully!", cocktailIngredient.getIngredient().getName(), cocktailIngredient.getCocktail().getName());
+        String message = String.format("Cocktail ingredient '%s' in '%s' cocktail has been updated successfully!",
+                                       cocktailIngredient.getIngredient().getName(),
+                                       cocktailIngredient.getCocktail().getName());
         model.addAttribute("message", message);
         return new ModelAndView("update/recipe/updatedCocktailIngredient", "cocktailIngredient", cocktailIngredient);
     }
@@ -72,7 +81,9 @@ public class CocktailIngredientsController {
     public ModelAndView deleteCocktailIngredient(@RequestParam(value = "id") Integer id, Model model) {
         CocktailIngredient cocktailIngredient = cocktailIngredientsService.getCocktailIngredient(id);
         cocktailIngredientsService.deleteCocktailIngredient(cocktailIngredient);
-        String message = String.format("Cocktail ingredient '%s' in '%s' cocktail has been deleted successfully!", cocktailIngredient.getIngredient().getName(), cocktailIngredient.getCocktail().getName());
+        String message = String.format("Cocktail ingredient '%s' in '%s' cocktail has been deleted successfully!",
+                                       cocktailIngredient.getIngredient().getName(),
+                                       cocktailIngredient.getCocktail().getName());
         model.addAttribute("message", message);
         return new ModelAndView("update/recipe/updatedCocktailIngredient", "cocktailIngredient", cocktailIngredient);
     }
@@ -87,9 +98,18 @@ public class CocktailIngredientsController {
     }
 
     @PostMapping(value = "/cocktail/ingredient/add")
-    public ModelAndView addCocktailIngredient(@ModelAttribute CocktailIngredient cocktailIngredient, Model model) {
+    public ModelAndView addCocktailIngredient(@Valid @ModelAttribute("cocktailIngredient") CocktailIngredient cocktailIngredient, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            Cocktail cocktail = cocktailService.getCocktail(cocktailIngredient.getCocktail().getId());
+            model.addAttribute("cocktail", cocktail);
+            List<Ingredient> ingredients = ingredientService.getAllIngredients();
+            model.addAttribute("ingredients", ingredients);
+            return new ModelAndView("create/recipe/addCocktailIngredient", "cocktailIngredient", cocktailIngredient);
+        }
         cocktailIngredientsService.createCocktailIngredient(cocktailIngredient);
-        String message = String.format("Cocktail ingredient '%s' in '%s' cocktail has been added successfully!", cocktailIngredient.getIngredient().getName(), cocktailIngredient.getCocktail().getName());
+        String message = String.format("Cocktail ingredient '%s' in '%s' cocktail has been added successfully!",
+                                       cocktailIngredient.getIngredient().getName(),
+                                       cocktailIngredient.getCocktail().getName());
         model.addAttribute("message", message);
         return new ModelAndView("update/recipe/updatedCocktailIngredient", "cocktailIngredient", cocktailIngredient);
     }

@@ -104,13 +104,15 @@
             </div>
             <div class="form-group mb-3 password-container">
                 <label for="amount">Amount:</label>
-                <form:input path="amount" class="form-control" id="amount" value="${cocktailIngredient.amount}"/>
+                <br>
                 <form:errors path="amount" cssClass="text-danger"/>
+                <form:input path="amount" class="form-control" id="amount" value="${cocktailIngredient.amount}"/>
             </div>
             <div class="form-group mb-3 password-container">
                 <label for="unit">Unit:</label>
-                <form:input path="unit" class="form-control" id="unit" value="${cocktailIngredient.unit}"/>
+                <br>
                 <form:errors path="unit" cssClass="text-danger"/>
+                <form:input path="unit" class="form-control" id="unit" value="${cocktailIngredient.unit}"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Update cocktail ingredient</button>
             <br>

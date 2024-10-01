@@ -62,15 +62,19 @@
 
 <body>
 <div class="form-container">
-    <h2>Delete ingredient by ID:</h2>
+    <h2>Delete ingredient:</h2>
     <form action="/ingredient/delete" method="post">
         <div class="form-group">
+            <label for="ingredient">Ingredient:</label>
             <br>
-            <label for="id">Enter ID:</label>
-            <input type="number" id="id" name="id" class="form-control" required/>
-            <br>
+            <select name="id" class="form-control" id="ingredient" required>
+                <option value="" disabled selected>-- Select ingredient --</option>
+                <c:forEach var="ingredient" items="${ingredients}">
+                    <option value="${ingredient.id}">${ingredient.name}</option>
+                </c:forEach>
+            </select>
         </div>
-        <button type="submit" class="btn w-100">Delete ingredient</button>
+        <button type="submit" class="btn w-100">Delete</button>
         <a href="/ingredients" class="btn btn-secondary w-100 mt-2">Back</a>
     </form>
 </div>
