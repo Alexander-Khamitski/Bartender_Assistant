@@ -89,7 +89,7 @@
                     <form:options items="${statuses}" itemValue="id" itemLabel="status"/>
                 </form:select>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Update cocktail</button>
+            <button type="submit" class="btn btn-primary w-100">Update</button>
             <a href="/main/cocktails" class="btn btn-secondary w-100 mt-2">Back</a>
         </form:form>
     </div>

@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -43,6 +44,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @NotNull(message = "Role is required.")
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

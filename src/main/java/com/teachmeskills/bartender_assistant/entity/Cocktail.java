@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -46,6 +47,7 @@ public class Cocktail {
     @Setter
     private String description;
 
+    @NotNull(message = "Status is required.")
     @ManyToOne
     @JoinColumn(name = "status_id")
     @Getter
