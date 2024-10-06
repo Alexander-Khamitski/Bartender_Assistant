@@ -45,6 +45,11 @@ public class CocktailIngredientsServiceImpl implements CocktailIngredientsServic
 
     @Override
     public List<CocktailIngredient> getAllCocktailIngredientsByIngredientId(int ingredientId) {
-        return  cocktailIngredientsRepository.findByIngredientId(ingredientId);
+        return cocktailIngredientsRepository.findByIngredientId(ingredientId);
+    }
+
+    @Override
+    public boolean isIngredientExistInCocktail(int cocktailId, int ingredientId) {
+        return cocktailIngredientsRepository.existsByCocktailAndIngredient(cocktailId, ingredientId);
     }
 }

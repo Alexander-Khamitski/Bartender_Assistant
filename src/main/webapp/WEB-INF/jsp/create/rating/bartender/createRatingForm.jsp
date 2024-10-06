@@ -82,9 +82,10 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="mt-5">Add cocktail review:</h2>
+    <h2 class="mt-5">Add bartender rating:</h2>
     <div class="form-container">
-        <form:form action="${pageContext.request.contextPath}/cocktail/rating/create" method="post" modelAttribute="cocktailRating">
+        <form:form action="${pageContext.request.contextPath}/bartender/rating/create" method="post"
+                   modelAttribute="bartenderRating">
             <div class="form-group mb-3">
                 <label for="user">User:</label>
                 <br>
@@ -93,12 +94,12 @@
                 <form:hidden path="user.id" value="${user.id}"/>
             </div>
             <div class="form-group mb-3">
-                <label for="cocktail">Cocktail:</label>
+                <label for="bartenderId">Bartender:</label>
                 <br>
-                <form:errors path="cocktail" cssClass="text-danger"/>
-                <form:select path="cocktail" class="form-control" id="cocktail">
-                    <form:option value="" label="-- Select cocktail --"/>
-                    <form:options items="${cocktails}" itemValue="id" itemLabel="name"/>
+                <form:errors path="bartenderId" cssClass="text-danger"/>
+                <form:select path="bartenderId" class="form-control" id="bartenderId">
+                    <form:option value="" label="-- Select bartender --"/>
+                    <form:options items="${bartenders}" itemValue="id" itemLabel="username"/>
                 </form:select>
             </div>
             <div class="form-group mb-3">
@@ -111,7 +112,7 @@
                 </form:select>
             </div>
             <button type="submit" class="btn btn-primary w-100">Add</button>
-            <a href="/ratings" class="btn btn-secondary w-100 mt-2">Back to cocktail ratings</a>
+            <a href="/ratings/bartenders" class="btn btn-secondary w-100 mt-2">Back to bartender ratings</a>
         </form:form>
     </div>
 </div>

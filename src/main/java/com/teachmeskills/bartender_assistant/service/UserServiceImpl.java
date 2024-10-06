@@ -2,6 +2,7 @@ package com.teachmeskills.bartender_assistant.service;
 
 import java.util.List;
 
+import com.teachmeskills.bartender_assistant.consts.RoleIdsConsts;
 import com.teachmeskills.bartender_assistant.dto.UserCreateDTO;
 import com.teachmeskills.bartender_assistant.dto.UserDTO;
 import com.teachmeskills.bartender_assistant.entity.Role;
@@ -92,12 +93,23 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByLogin(login);
     }
 
-    @Override
-    public List<User> getUsersByRoleId(int roleId) {
-        return userRepository.findByRoleId(roleId);
+    public List<User> getBartenders() {
+        return userRepository.findByRoleId(RoleIdsConsts.ROLE_BARTENDER);
     }
 
-    public List<User> findByRoleId(int roleId) {
-        return userRepository.findByRoleId(roleId);
+    @Override
+    public boolean isUserExistByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean isUserExistByLogin(String login) {
+        return userRepository.existsByLogin(login);
+    }
+
+    @Override
+    public Page<UserDTO> getBartenders(Pageable pageable) {
+        Page<User> users = userRepository.findByRoleId(RoleIdsConsts.ROLE_BARTENDER, pageable);
+        return users.map(user -> userMapper.toDTO(user));
     }
 }

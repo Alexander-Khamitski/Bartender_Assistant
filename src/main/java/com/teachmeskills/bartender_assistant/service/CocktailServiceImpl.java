@@ -17,16 +17,9 @@ public class CocktailServiceImpl implements CocktailService {
 
     @Autowired
     private CocktailRepository cocktailRepository;
-    @Autowired
-    private CocktailStatusServiceImpl cocktailStatusService;
-    @Autowired
-    private CocktailIngredientsServiceImpl cocktailIngredientsService;
-    @Autowired
-    private CocktailRatingServiceImpl cocktailRatingService;
 
     @Override
     public void createCocktail(Cocktail cocktail) {
-        cocktail.setStatus(cocktailStatusService.getDefaultCocktailStatus());
         cocktailRepository.save(cocktail);
     }
 

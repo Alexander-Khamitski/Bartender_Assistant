@@ -28,7 +28,10 @@ public class SecurityConfig {
                         .requestMatchers("/admin/users", "/admin/user/delete", "/admin/user/get", "/admin/user/update")
                         .hasRole("admin")
                         .requestMatchers("/cocktail/get", "/cocktail/update", "/cocktail/delete", "/ingredients", "/ingredient/**", "/recipes", "/recipe/get", "/cocktail/ingredient/update", "/cocktail/ingredient/delete", "/cocktail/ingredient/add", "/cocktail/rating/delete").hasAnyRole("admin", "bartender")
-                        .requestMatchers("/user/profile", "/user/profile/update", "/cocktail/create", "/cocktail/rating/create", "/ratings").hasAnyRole("admin", "bartender", "user")
+                        .requestMatchers("/user/profile", "/user/profile/update", "/cocktail/create",
+                                         "/cocktail/rating/create", "/ratings/cocktails", "/ratings/bartenders",
+                                         "/bartender/rating/create", "/bartender/rating/delete")
+                        .hasAnyRole("admin", "bartender", "user")
                         .requestMatchers("/main/**", "/signin", "/registration", "/login", "/logout").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll())
                 .formLogin(formLogin -> formLogin

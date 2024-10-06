@@ -38,6 +38,32 @@
             background-color: #1b1b1b; /* Form background */
         }
 
+        .password-container {
+            position: relative;
+        }
+
+        .password-container input {
+            flex: 1;
+            padding-right: 40px; /* Add some padding to the right for the icon */
+        }
+
+        .password-container .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            cursor: pointer;
+            color: #ffc107; /* Yellow color for contrast */
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            border-radius: 50%; /* Rounded background */
+            transform: translateY(-50%);
+        }
+
+        .password-container .toggle-password:hover {
+            color: #fff; /* Change icon color on hover */
+            background-color: #333; /* Darker background on hover */
+        }
+
         /*NavBar*/
         .navbar {
             background-color: #1b1b1b;
@@ -56,42 +82,38 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="mt-5">Add cocktail ingredient:</h2>
+    <h2 class="mt-5">Add cocktail review:</h2>
     <div class="form-container">
-        <form:form action="${pageContext.request.contextPath}/cocktail/ingredient/add" method="post" modelAttribute="cocktailIngredient">
+        <form:form action="${pageContext.request.contextPath}/cocktail/rating/create" method="post"
+                   modelAttribute="cocktailRating">
+            <div class="form-group mb-3">
+                <label for="user">User:</label>
+                <br>
+                <form:errors path="user" cssClass="text-danger"/>
+                <form:input type="text" path="user.username" class="form-control" id="user" value="${user.username}"
+                            readonly="true"/>
+                <form:hidden path="user.id" value="${user.id}"/>
+            </div>
             <div class="form-group mb-3">
                 <label for="cocktail">Cocktail:</label>
                 <br>
                 <form:errors path="cocktail" cssClass="text-danger"/>
-                <form:input type="text" path="cocktail.name" class="form-control" id="cocktail" value="${cocktail.name}" readonly="true"/>
-                <form:hidden path="cocktail.id" value="${cocktail.id}"/>
-            </div>
-            <div class="form-group mb-3">
-                <label for="ingredient">Ingredient:</label>
-                <br>
-                <c:if test="${message != null}">
-                    <p class="text-danger">${message}</p>
-                </c:if>
-                <form:errors path="ingredient" cssClass="text-danger"/>
-                <form:select path="ingredient" class="form-control" id="ingredient">
-                    <form:option value="" label="-- Select ingredient --"/>
-                    <form:options items="${ingredients}" itemValue="id" itemLabel="name"/>
+                <form:select path="cocktail" class="form-control" id="cocktail">
+                    <form:option value="" label="-- Select cocktail --"/>
+                    <form:options items="${cocktails}" itemValue="id" itemLabel="name"/>
                 </form:select>
             </div>
             <div class="form-group mb-3">
-                <label for="amount">Amount:</label>
+                <label for="rating">Rating:</label>
                 <br>
-                <form:errors path="amount" cssClass="text-danger"/>
-                <form:input type="number" path="amount" class="form-control" id="amount"/>
-            </div>
-            <div class="form-group mb-3">
-                <label for="unit">Unit:</label>
-                <br>
-                <form:errors path="unit" cssClass="text-danger"/>
-                <form:input type="text" path="unit" class="form-control" id="unit"/>
+                <form:errors path="rating" cssClass="text-danger"/>
+                <form:select path="rating" class="form-control" id="rating">
+                    <form:option value="" label="-- Select rating --"/>
+                    <form:options items="${ratings}"/>
+                </form:select>
             </div>
             <button type="submit" class="btn btn-primary w-100">Add</button>
-            <a href="/recipe/get?id=${cocktail.id}" class="btn btn-secondary w-100 mt-2">Back to cocktail recipe</a>
+            <a href="/ratings/cocktails" class="btn btn-secondary w-100 mt-2">Back to cocktail ratings</a>
         </form:form>
     </div>
 </div>

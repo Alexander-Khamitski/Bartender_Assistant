@@ -68,6 +68,9 @@
             <div class="form-group mb-3">
                 <label for="name" path="name">Name:</label>
                 <br>
+                <c:if test="${message != null}">
+                    <p class="text-warning">${message}</p>
+                </c:if>
                 <form:errors path="name" cssClass="text-danger"/>
                 <form:input type="text" path="name" class="form-control" id="name"/>
             </div>

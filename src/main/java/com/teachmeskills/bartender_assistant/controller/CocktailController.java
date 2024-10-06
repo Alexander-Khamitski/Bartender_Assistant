@@ -28,7 +28,9 @@ public class CocktailController {
 
     @GetMapping(value = "/create")
     public ModelAndView fillCreateCocktailForm() {
-        return new ModelAndView("create/cocktail/createCocktailForm", "cocktail", new Cocktail());
+        Cocktail cocktail = new Cocktail();
+        cocktail.setStatus(cocktailStatusService.getDefaultCocktailStatus());
+        return new ModelAndView("create/cocktail/createCocktailForm", "cocktail", cocktail);
     }
 
     @PostMapping(value = "/create")
@@ -39,7 +41,7 @@ public class CocktailController {
         boolean isCocktailExist = cocktailService.isCocktailExist(cocktailName);
         if (result.hasErrors() || isCocktailExist) {
             if (isCocktailExist) {
-                message = String.format("Cocktail '%s' exist. Duplication is not allowed.", cocktailName);
+                message = String.format("Cocktail '%s' exists. Duplication is not allowed.", cocktailName);
                 model.addAttribute("message", message);
             }
             return new ModelAndView("create/cocktail/createCocktailForm", "cocktail", cocktail);

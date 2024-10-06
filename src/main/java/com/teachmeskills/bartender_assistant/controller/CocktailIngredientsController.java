@@ -99,7 +99,15 @@ public class CocktailIngredientsController {
 
     @PostMapping(value = "/cocktail/ingredient/add")
     public ModelAndView addCocktailIngredient(@Valid @ModelAttribute("cocktailIngredient") CocktailIngredient cocktailIngredient, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+        boolean isCocktailIngredientExist = cocktailIngredientsService.isIngredientExistInCocktail(
+                cocktailIngredient.getCocktail().getId(), cocktailIngredient.getIngredient().getId());
+        String message;
+        if (result.hasErrors() || isCocktailIngredientExist) {
+            if (isCocktailIngredientExist) {
+                message = String.format("'%s' has been already included into cocktail. Duplication is not allowed.",
+                                        cocktailIngredient.getIngredient().getName());
+                model.addAttribute("message", message);
+            }
             Cocktail cocktail = cocktailService.getCocktail(cocktailIngredient.getCocktail().getId());
             model.addAttribute("cocktail", cocktail);
             List<Ingredient> ingredients = ingredientService.getAllIngredients();
@@ -107,9 +115,9 @@ public class CocktailIngredientsController {
             return new ModelAndView("create/recipe/addCocktailIngredient", "cocktailIngredient", cocktailIngredient);
         }
         cocktailIngredientsService.createCocktailIngredient(cocktailIngredient);
-        String message = String.format("Cocktail ingredient '%s' in '%s' cocktail has been added successfully!",
-                                       cocktailIngredient.getIngredient().getName(),
-                                       cocktailIngredient.getCocktail().getName());
+        message = String.format("Cocktail ingredient '%s' in '%s' cocktail has been added successfully!",
+                                cocktailIngredient.getIngredient().getName(),
+                                cocktailIngredient.getCocktail().getName());
         model.addAttribute("message", message);
         return new ModelAndView("update/recipe/updatedCocktailIngredient", "cocktailIngredient", cocktailIngredient);
     }

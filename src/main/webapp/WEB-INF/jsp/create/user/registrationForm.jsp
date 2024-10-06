@@ -101,12 +101,18 @@
             <div class="form-group mb-3">
                 <label for="username" path="username">Username:</label>
                 <br>
+                <c:if test="${existingUsernameMessage != null}">
+                    <p class="text-danger">${existingUsernameMessage}</p>
+                </c:if>
                 <form:errors path="username" cssClass="text-danger"/>
                 <form:input type="text" path="username" class="form-control" id="username"/>
             </div>
             <div class="form-group mb-3">
                 <label for="login" path="login">Login:</label>
                 <br>
+                <c:if test="${existingLoginMessage != null}">
+                    <p class="text-danger">${existingLoginMessage}</p>
+                </c:if>
                 <form:errors path="login" cssClass="text-danger"/>
                 <form:input type="text" path="login" class="form-control" id="login"/>
             </div>

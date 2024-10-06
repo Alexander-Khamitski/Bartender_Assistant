@@ -64,7 +64,9 @@
     <div class="form-container">
         <p>${message}</p>
         <div class="d-flex justify-content-between mt-4">
-            <a href="/ratings" class="btn btn-secondary w-100 btn-back">Back to ratings</a>
+            <a href="/ratings/cocktails" class="btn btn-primary half-width">Back to ratings</a>
+            <br>
+            <a href="/main" class="btn btn-secondary half-width">Main Page</a>
         </div>
     </div>
 </div>

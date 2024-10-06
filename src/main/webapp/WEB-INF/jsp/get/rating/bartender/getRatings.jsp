@@ -1,7 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,47 +47,6 @@
             background-color: #333;
         }
 
-        /*Buttons*/
-        .btn {
-            background-color: #ffc107;
-            color: black;
-            border: none; /* Убираем границу у кнопок */
-        }
-
-        .btn:hover {
-            background-color: #e0a800; /* Изменение цвета при наведении */
-            color: black;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center; /* Центрирование кнопок по горизонтали */
-        }
-
-        .btn-group .btn {
-            margin: 0 5px; /* Добавляет немного пространства между кнопками */
-            width: auto; /* Убирает 100% ширину для кнопок */
-        }
-
-        .table th:nth-child(6), .table td:nth-child(6) {
-            width: 200px; /* Ширина для кнопок действий */
-        }
-
-        /*NavBar*/
-        .navbar {
-            background-color: #1b1b1b;
-        }
-
-        .nav-link {
-            color: #f8f9fa;
-            font-size: 1.5em;
-            font-family: serif;
-        }
-
-        .nav-link:hover {
-            color: #ffc107;
-        }
-
         /*Pagination*/
         .pagination {
             display: flex;
@@ -116,45 +74,70 @@
             background-color: #555;
             color: white;
         }
+
+        /*Buttons*/
+        .btn {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .btn:hover {
+            background-color: #e0a800; /* Изменение цвета при наведении */
+            color: black;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center; /* Центрирование кнопок по горизонтали */
+        }
+
+        .btn-group .btn {
+            margin: 0 5px; /* Добавляет немного пространства между кнопками */
+        }
+
+        /*NavBar*/
+        .navbar {
+            background-color: #1b1b1b;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+            font-size: 1.5em;
+            font-family: serif;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
     </style>
 </head>
 
 <body>
 <div class="form-container">
-    <h2>Our cocktails:</h2>
+    <h2>Our bartender ratings:</h2>
     <form>
         <table class="table table-hover">
             <thead>
             <tr>
+                <th>Username:</th>
+                <th>Bartender:</th>
+                <th>Rating:</th>
                 <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <th>ID:</th>
-                </sec:authorize>
-                <th>Name:</th>
-                <th>Description:</th>
-                <th>Average rating:</th>
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <th>Status:</th>
                     <th>Actions:</th>
                 </sec:authorize>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="cocktail" items="${cocktails}">
+            <c:forEach var="bartenderRating" items="${bartenderRatings}">
                 <tr>
+                    <td>${bartenderRating.user.username}</td>
+                    <td>${bartenderNames[bartenderRating.bartenderId]}</td>
+                    <td>${bartenderRating.rating}</td>
                     <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                        <td>${cocktail.id}</td>
-                    </sec:authorize>
-                    <td>${cocktail.name}</td>
-                    <td>${cocktail.description}</td>
-                    <td><fmt:formatNumber value="${averageRatings[cocktail.id]}" maxFractionDigits="2"/></td>
-                    <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                        <td>${cocktail.status.status}</td>
                         <td>
-                            <a href="/cocktail/get?id=${cocktail.id}" class="btn btn-block">Get</a>
-                            <a href="/cocktail/update?id=${cocktail.id}" class="btn btn-block">Edit</a>
-                            <form action="/cocktail/delete" method="POST" style="display:inline;">
-                                <input type="hidden" name="id" value="${cocktail.id}"/>
-                                <button type="submit" class="btn btn-block">Delete</button>
+                            <form action="/bartender/rating/delete?id=${bartenderRating.id}" method="POST"
+                                  style="display:inline;">
+                                <button type="submit" class="btn btn-group w-100 mt-2">Delete</button>
                             </form>
                         </td>
                     </sec:authorize>
@@ -183,18 +166,10 @@
                 </li>
             </ul>
         </nav>
-
         <div class="text-center">
             <div class="col-12 btn-group">
-                <sec:authorize access="isAuthenticated()">
-                    <a href="/cocktail/create" class="btn btn-group w-100 mt-2">Create cocktail for review</a>
-                </sec:authorize>
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <a href="/cocktail/get" class="btn btn-group w-100 mt-2">Get cocktail</a>
-                    <a href="/cocktail/update" class="btn btn-group w-100 mt-2">Update cocktail</a>
-                    <a href="/cocktail/delete" class="btn btn-group w-100 mt-2">Delete cocktail</a>
-                </sec:authorize>
-                <a href="/main" class="btn btn-group w-100 mt-2">Main page</a>
+                <a href="/bartender/rating/create" class="btn btn-group w-100 mt-2">Add rating</a>
+                <a href="/main" class="btn btn-group w-100 mt-2">Back to main page</a>
             </div>
         </div>
     </form>

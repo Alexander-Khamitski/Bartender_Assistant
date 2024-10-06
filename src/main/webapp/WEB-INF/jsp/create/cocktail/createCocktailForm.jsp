@@ -69,7 +69,7 @@
                 <label for="name" path="name">Name:</label>
                 <br>
                 <c:if test="${message != null}">
-                    <p class="text-warning">${message}</p>
+                    <p class="text-danger">${message}</p>
                 </c:if>
                 <form:errors path="name" cssClass="text-danger"/>
                 <form:input type="text" path="name" class="form-control" id="username"/>
@@ -79,6 +79,14 @@
                 <br>
                 <form:errors path="description" cssClass="text-danger"/>
                 <form:input type="text" path="description" class="form-control" id="login"/>
+            </div>
+            <div class="form-group mb-3">
+                <label for="status">Status:</label>
+                <br>
+                <form:errors path="status" cssClass="text-danger"/>
+                <form:input type="text" path="status.status" class="form-control" id="status"
+                            value="${cocktail.status.status}" readonly="true"/>
+                <form:hidden path="status.id" value="${cocktail.status.id}"/>
             </div>
             <button type="submit" class="btn btn-primary w-100">Create cocktail</button>
             <a href="/main/cocktails" class="btn btn-secondary w-100 mt-2">Back</a>

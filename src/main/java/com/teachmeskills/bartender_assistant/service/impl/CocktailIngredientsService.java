@@ -17,4 +17,6 @@ public interface CocktailIngredientsService {
     void deleteCocktailIngredient(CocktailIngredient cocktailIngredient);
 
     List<CocktailIngredient> getAllCocktailIngredientsByIngredientId(int ingredientId);
+
+    boolean isIngredientExistInCocktail(int cocktailId, int ingredientId);
 }

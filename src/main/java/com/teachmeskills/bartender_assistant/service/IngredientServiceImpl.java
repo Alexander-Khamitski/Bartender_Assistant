@@ -53,4 +53,9 @@ public class IngredientServiceImpl implements IngredientService {
     public List<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();
     }
+
+    @Override
+    public boolean isIngredientExist(String name) {
+        return ingredientRepository.existsByName(name);
+    }
 }

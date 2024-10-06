@@ -24,12 +24,26 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView createUser(@Valid @ModelAttribute("userCreateDto") UserCreateDTO userCreateDto, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+    public ModelAndView createUser(@Valid @ModelAttribute("userCreateDto") UserCreateDTO userCreateDto,
+                                   BindingResult result, Model model) {
+        String username = userCreateDto.getUsername();
+        String login = userCreateDto.getLogin();
+        boolean isUserExistByUsername = userService.isUserExistByUsername(username);
+        boolean isUserExistByLogin = userService.isUserExistByLogin(login);
+        String message;
+        if (result.hasErrors() || isUserExistByUsername || isUserExistByLogin) {
+            if (isUserExistByUsername) {
+                message = String.format("User with username '%s' exists. Duplication is not allowed.", username);
+                model.addAttribute("existingUsernameMessage", message);
+            }
+            if (isUserExistByLogin) {
+                message = String.format("User with login '%s' exists. Duplication is not allowed.", login);
+                model.addAttribute("existingLoginMessage", message);
+            }
             return new ModelAndView("create/user/registrationForm", "userCreateDto", userCreateDto);
         }
         userService.createUser(userCreateDto);
-        String message = String.format("Welcome to Bartender Assistant, %s!", userCreateDto.getUsername());
+        message = String.format("Welcome to Bartender Assistant, %s!", userCreateDto.getUsername());
         model.addAttribute("message", message);
         return new ModelAndView("main/welcomePage");
     }

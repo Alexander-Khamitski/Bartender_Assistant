@@ -17,7 +17,18 @@
                 <a class="nav-link" href="/main/cocktails">Cocktails</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/ratings">Ratings</a>
+                <a class="nav-link" href="/main/bartenders">Bartenders</a>
+            </li>
+            <!-- Dropdown for Ratings -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ratingsDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Ratings
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="ratingsDropdown">
+                    <li><a class="dropdown-item" href="/ratings/cocktails">Cocktails</a></li>
+                    <li><a class="dropdown-item" href="/ratings/bartenders">Bartenders</a></li>
+                </ul>
             </li>
             <sec:authorize access="hasRole('admin') or hasRole('bartender')">
                 <li class="nav-item">

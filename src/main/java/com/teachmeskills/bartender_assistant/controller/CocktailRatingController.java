@@ -34,7 +34,7 @@ public class CocktailRatingController {
     @Autowired
     private UserServiceImpl userService;
 
-    @GetMapping("/ratings")
+    @GetMapping("/ratings/cocktails")
     public ModelAndView showRatingsPage(@RequestParam(defaultValue = "0") int page, Model model) {
         Pageable paging = PageRequest.of(page, PaginationConsts.PAGE_SIZE_SEVEN);
         Page<CocktailRating> pageRatings = cocktailRatingService.getAllCocktailRatings(paging);
@@ -43,27 +43,27 @@ public class CocktailRatingController {
         model.addAttribute("currentPage", pageRatings.getNumber());
         model.addAttribute("totalPages", pageRatings.getTotalPages());
         model.addAttribute("totalItems", pageRatings.getTotalElements());
-        return new ModelAndView("get/rating/getRatings");
+        return new ModelAndView("get/rating/cocktail/getRatings");
     }
 
     @GetMapping("/cocktail/rating/create")
     public ModelAndView createCocktailRatingForm(Model model) {
         addRatingAttributes(model);
-        return new ModelAndView("create/rating/createRatingForm", "cocktailRating", new CocktailRating());
+        return new ModelAndView("create/rating/cocktail/createRatingForm", "cocktailRating", new CocktailRating());
     }
 
     @PostMapping(value = "/cocktail/rating/create")
-    public ModelAndView updateCocktailIngredient(@Valid @ModelAttribute("cocktailRating") CocktailRating cocktailRating, BindingResult result, Model model) {
+    public ModelAndView createCocktailRatingForm(@Valid @ModelAttribute("cocktailRating") CocktailRating cocktailRating, BindingResult result, Model model) {
         if (result.hasErrors()) {
             addRatingAttributes(model);
-            return new ModelAndView("create/rating/createRatingForm", "cocktailRating", cocktailRating);
+            return new ModelAndView("create/rating/cocktail/createRatingForm", "cocktailRating", cocktailRating);
         }
         cocktailRatingService.createCocktailRating(cocktailRating);
         String message = String.format("Rating '%s' for '%s' cocktail has been created successfully!",
                                        cocktailRating.getRating(),
                                        cocktailRating.getCocktail().getName());
         model.addAttribute("message", message);
-        return new ModelAndView("create/rating/createdRating", "message", message);
+        return new ModelAndView("create/rating/cocktail/createdRating", "message", message);
     }
 
     @PostMapping(value = "/cocktail/rating/delete")
@@ -74,7 +74,7 @@ public class CocktailRatingController {
                                        cocktailRating.getRating(),
                                        cocktailRating.getCocktail().getName());
         model.addAttribute("message", message);
-        return new ModelAndView("delete/rating/deletedRating", "cocktailRating", cocktailRating);
+        return new ModelAndView("delete/rating/cocktail/deletedRating", "cocktailRating", cocktailRating);
     }
 
     private void addRatingAttributes(Model model) {

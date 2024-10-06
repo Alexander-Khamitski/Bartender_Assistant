@@ -36,11 +36,18 @@ public class IngredientController {
     @PostMapping(value = "/create")
     public ModelAndView createIngredient(@Valid @ModelAttribute("ingredient") Ingredient ingredient,
                                          BindingResult result, Model model) {
-        if (result.hasErrors()) {
+        String ingredientName = ingredient.getName();
+        boolean isIngredientExist = ingredientService.isIngredientExist(ingredient.getName());
+        String message;
+        if (result.hasErrors() || isIngredientExist) {
+            if (isIngredientExist) {
+                message = String.format("Ingredient '%s' exists. Duplication is not allowed.", ingredientName);
+                model.addAttribute("message", message);
+            }
             return new ModelAndView("create/ingredient/createIngredientForm", "ingredient", ingredient);
         }
         ingredientService.createIngredient(ingredient);
-        String message = String.format("Ingredient '%s' has been created successfully!", ingredient.getName());
+        message = String.format("Ingredient '%s' has been created successfully!", ingredient.getName());
         model.addAttribute("message", message);
         return new ModelAndView("create/ingredient/createdIngredient");
     }

@@ -1,9 +1,10 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/jsp/common/navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>User Info</title>
+    <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -16,9 +17,10 @@
             padding: 0px 50px 200px 50px;
         }
 
-        h1, h2, h3 {
+        h2 {
             font-family: 'Georgia', serif;
             color: #f8f9fa;
+            text-align: center;
         }
 
         .btn {
@@ -58,12 +60,13 @@
     </style>
 </head>
 <body>
-<div class="form-container">
-    <h2>Requested user info:</h2>
-    <p><strong>ID:</strong> ${userDto.id}</p>
-    <p><strong>Username:</strong> ${userDto.username}</p>
-    <p><strong>Role:</strong> ${userDto.role.roleName}</p>
-    <a href="/main" class="btn btn-secondary w-100 btn-back">Main page</a>
+<div class="container">
+    <div class="form-container">
+        <p>${message}</p>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="/ratings/bartenders" class="btn btn-secondary w-100 btn-back">Back to ratings</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

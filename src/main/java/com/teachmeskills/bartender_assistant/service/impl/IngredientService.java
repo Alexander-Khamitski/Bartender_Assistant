@@ -21,4 +21,6 @@ public interface IngredientService {
     Page<Ingredient> getAllIngredients(Pageable pageable);
 
     List<Ingredient> getAllIngredients();
+
+    boolean isIngredientExist(String name);
 }

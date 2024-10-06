@@ -118,7 +118,7 @@
 
 <body>
 <div class="form-container">
-    <h2>All cocktails with recipes:</h2>
+    <h2>Our cocktail recipes:</h2>
     <form>
         <table class="table table-hover">
             <thead>

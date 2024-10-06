@@ -121,7 +121,7 @@
 
 <body>
 <div class="form-container">
-    <h2>Our cocktails:</h2>
+    <h2>Our bartenders:</h2>
     <form>
         <table class="table table-hover">
             <thead>
@@ -130,32 +130,24 @@
                     <th>ID:</th>
                 </sec:authorize>
                 <th>Name:</th>
-                <th>Description:</th>
                 <th>Average rating:</th>
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <th>Status:</th>
+                <sec:authorize access="hasRole('admin')">
                     <th>Actions:</th>
                 </sec:authorize>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="cocktail" items="${cocktails}">
+            <c:forEach var="bartender" items="${bartenders}">
                 <tr>
                     <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                        <td>${cocktail.id}</td>
+                        <td>${bartender.id}</td>
                     </sec:authorize>
-                    <td>${cocktail.name}</td>
-                    <td>${cocktail.description}</td>
-                    <td><fmt:formatNumber value="${averageRatings[cocktail.id]}" maxFractionDigits="2"/></td>
+                    <td>${bartender.username}</td>
+                    <td><fmt:formatNumber value="${averageRatings[bartender.id]}" maxFractionDigits="2"/></td>
                     <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                        <td>${cocktail.status.status}</td>
                         <td>
-                            <a href="/cocktail/get?id=${cocktail.id}" class="btn btn-block">Get</a>
-                            <a href="/cocktail/update?id=${cocktail.id}" class="btn btn-block">Edit</a>
-                            <form action="/cocktail/delete" method="POST" style="display:inline;">
-                                <input type="hidden" name="id" value="${cocktail.id}"/>
-                                <button type="submit" class="btn btn-block">Delete</button>
-                            </form>
+                            <a href="/admin/user/get?id=${bartender.id}" class="btn btn-block">Get</a>
+                            <a href="/admin/user/update?id=${bartender.id}" class="btn btn-block">Edit</a>
                         </td>
                     </sec:authorize>
                 </tr>
@@ -186,14 +178,6 @@
 
         <div class="text-center">
             <div class="col-12 btn-group">
-                <sec:authorize access="isAuthenticated()">
-                    <a href="/cocktail/create" class="btn btn-group w-100 mt-2">Create cocktail for review</a>
-                </sec:authorize>
-                <sec:authorize access="hasRole('admin') or hasRole('bartender')">
-                    <a href="/cocktail/get" class="btn btn-group w-100 mt-2">Get cocktail</a>
-                    <a href="/cocktail/update" class="btn btn-group w-100 mt-2">Update cocktail</a>
-                    <a href="/cocktail/delete" class="btn btn-group w-100 mt-2">Delete cocktail</a>
-                </sec:authorize>
                 <a href="/main" class="btn btn-group w-100 mt-2">Main page</a>
             </div>
         </div>
